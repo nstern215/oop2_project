@@ -2,7 +2,7 @@
 
 #include "Components/GameComponent.h"
 
-#define GAME_TITLE "IcyTower"
+#define GAME_TITLE "Icy Tower"
 #define WIDTH 800
 #define HEIGHT 800
 
@@ -28,8 +28,13 @@ void Controller::run()
 			case sf::Event::Closed:
 				m_window.close();
 				break;
+				default:
+					m_components[m_activeMode]->eventHandler(m_window, event);
+					break;
 			}
 		}
+
+		m_components[m_activeMode]->draw(m_window);
 	}
 }
 

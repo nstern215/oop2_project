@@ -10,3 +10,12 @@ void GameComponent::active(std::map<std::string, std::string>& metadata)
 	
 }
 
+void GameComponent::draw(sf::Window& window)
+{
+	
+}
+
+void GameComponent::eventHandler(sf::Window& window, sf::Event& event)
+{
+	
+}
