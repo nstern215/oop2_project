@@ -1,7 +1,10 @@
 ﻿target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
 												"Controller.cpp"
 												"Components/BaseComponent.cpp"
-												"ResourcesService.cpp"
+												"Components/GameComponent.cpp"
+												"Resources.cpp"
+												"Player.cpp"
 												"Views/BaseView.cpp"
 												"Views/TextView.cpp"
+												"Views/PlayerView.cpp"
 												)

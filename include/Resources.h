@@ -1,10 +1,10 @@
 #pragma once
 
-class ResourcesService
+class Resources
 {
 public:
-	ResourcesService();
-	~ResourcesService();
+	Resources();
+	~Resources();
 
 private:
 	void loadResources();

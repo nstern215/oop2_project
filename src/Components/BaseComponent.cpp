@@ -1,11 +1,7 @@
-#include "Components/BaseComponent.h"
+#include <Components/BaseComponent.h>
 
-BaseComponent::BaseComponent()
+void BaseComponent::active()
 {
-	
-}
-
-void BaseComponent::Active(std::map<std::string, std::string> metadata)
-{
-	
+	std::map<std::string, std::string> map;
+	active(map);
 }
