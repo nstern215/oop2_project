@@ -15,6 +15,11 @@ void GameComponent::draw(sf::Window& window)
 	
 }
 
+void GameComponent::clockUpdate(sf::Time delta)
+{
+	
+}
+
 void GameComponent::eventHandler(sf::Window& window, sf::Event& event)
 {
 	

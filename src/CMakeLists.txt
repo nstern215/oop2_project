@@ -4,7 +4,11 @@
 												"Components/GameComponent.cpp"
 												"Resources.cpp"
 												"Player.cpp"
+												"Floor.cpp"
+												"Tower.cpp"
+												"FloorGenerator.cpp"
 												"Views/BaseView.cpp"
 												"Views/TextView.cpp"
 												"Views/PlayerView.cpp"
+												"Views/FloorView.cpp"
 												)

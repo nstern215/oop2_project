@@ -11,6 +11,8 @@ Controller::Controller():
 	m_window(sf::VideoMode(WIDTH, HEIGHT), GAME_TITLE, sf::Style::Close)
 {
 	buildComponents();
+
+	m_window.setFramerateLimit(60);
 }
 
 void Controller::run()
@@ -34,6 +36,8 @@ void Controller::run()
 			}
 		}
 
+		const auto deltaTime = m_clock.restart();
+		
 		m_components[m_activeMode]->draw(m_window);
 	}
 }

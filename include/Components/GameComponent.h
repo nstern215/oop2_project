@@ -12,4 +12,6 @@ public:
 	void draw(sf::Window& window) override;
 
 	void eventHandler(sf::Window& window, sf::Event& event) override;
+
+	void clockUpdate(sf::Time delta) override;
 };
