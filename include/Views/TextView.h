@@ -5,5 +5,5 @@ class TextView : public BaseView
 {
 public:
 	TextView();
-	void draw(sf::Window& window) override;
+	void draw(sf::RenderWindow& window) override;
 };
