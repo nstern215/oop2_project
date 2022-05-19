@@ -6,5 +6,6 @@
 class FloorGenerator
 {
 public:
+	FloorGenerator();
 	std::pair<sf::Vector2i, int> operator()() const;
 };

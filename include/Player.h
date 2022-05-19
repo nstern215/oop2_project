@@ -4,7 +4,7 @@
 class Player
 {
 public:
-	void draw(sf::Window& window);
+	void draw(sf::RenderWindow& window);
 private:
 	PlayerView m_view;
 };

@@ -1,9 +1,13 @@
 #include "FloorGenerator.h"
 
-std::pair<sf::Vector2i, int> FloorGenerator::operator()() const
+FloorGenerator::FloorGenerator()
 {
 	srand(time(NULL));
+}
 
+
+std::pair<sf::Vector2i, int> FloorGenerator::operator()() const
+{
 	int width = rand() % 10 + 1;
 	int x = rand() % (20 - width) + 1;
 	int y = rand() % 10 + 1;

@@ -4,5 +4,5 @@
 class PlayerView : public BaseView
 {
 public:
-	void draw(sf::Window& window) override;
+	void draw(sf::RenderWindow& window) override;
 };

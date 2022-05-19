@@ -2,18 +2,23 @@
 
 #include "FloorGenerator.h"
 
-#define FLOORS_LOWER_BOUND 20
-
-Tower::Tower():
+Tower::Tower(int windowHeight) :
 	m_state(PAUSE),
-	m_floorsCount(0)
+	m_floorsBufferCount(0),
+	m_towerSpeed(150),
+	m_windowHeight(windowHeight)
 {
-	buildTower();
 }
 
-void Tower::draw(sf::Window& window)
+void Tower::increseSpeed()
 {
-	for (const auto& floor : m_floors)
+	m_towerSpeed += 50;
+}
+
+
+void Tower::draw(sf::RenderWindow& window)
+{
+	for (const auto& floor : m_towerFloors)
 		floor->draw(window);
 }
 
@@ -32,20 +37,33 @@ void Tower::reset()
 	m_state = PAUSE;
 
 	//todo: remove all floors
-	buildTower();
+	
 }
 
-void Tower::buildTower()
+void Tower::buildFloor()
 {
-	const FloorGenerator generator;
-	
-	while(m_floors.size() < FLOORS_LOWER_BOUND)
 	{
-		const auto [fst, snd] = generator();
+		const auto [fst, snd] = m_floorGen();
 		auto width = snd;
 		auto x = fst.x;
 		auto y = fst.y;
-		
-		m_floors.push_back(std::make_unique<Floor>(width, x, ++m_floorsCount));
+
+		m_towerFloors.push_back(std::make_unique<Floor>(width, x, ++m_floorsBufferCount));
 	}
+}
+
+void Tower::move(float deltaTime)
+{
+	if (m_state != PLAY)
+		return;
+
+	if (m_towerFloors.empty() || m_towerFloors.back()->getPosition().y >= 60)
+	{
+		buildFloor();
+	}
+
+	const sf::Vector2f direction(0, deltaTime * m_towerSpeed);
+	
+	for (auto& m_floor : m_towerFloors)
+			m_floor->updatePosition(direction);
 }

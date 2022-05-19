@@ -1,17 +1,21 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Tower.h"
 
 class Controller;
 
 class GameComponent : public BaseComponent
 {
 public:
-	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>));
+	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), int windowHeight);
 
 	void active(std::map<std::string, std::string>& metadata) override;
-	void draw(sf::Window& window) override;
+	void draw(sf::RenderWindow& window) override;
 
-	void eventHandler(sf::Window& window, sf::Event& event) override;
+	void eventHandler(sf::RenderWindow& window, sf::Event& event) override;
 
-	void clockUpdate(sf::Time delta) override;
+	void updateView() override;
+
+private:
+	std::unique_ptr<Tower> m_tower;
 };

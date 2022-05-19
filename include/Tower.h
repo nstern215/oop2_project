@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Floor.h"
+#include "FloorGenerator.h"
 
 enum TowerState
 {
@@ -13,20 +14,30 @@ enum TowerState
 class Tower
 {
 public:
-	Tower();
+	Tower(int windowHeight);
 	
 	void play();
 	void pause();
 	void reset();
 
-	void draw(sf::Window& window);
+	void draw(sf::RenderWindow& window);
+
+	void move(float deltaTime);
+
+	void increseSpeed();
 
 private:
 
-	void buildTower();
+	void buildFloor();
+
+	std::list<std::unique_ptr<Floor>> m_towerFloors;
 	
-	std::list<std::unique_ptr<Floor>> m_floors;
 	TowerState m_state;
 
-	unsigned int m_floorsCount;
+	unsigned int m_floorsBufferCount;
+	float m_towerSpeed;
+
+	const FloorGenerator m_floorGen;
+
+	int m_windowHeight;
 };

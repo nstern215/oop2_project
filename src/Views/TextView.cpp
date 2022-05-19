@@ -5,7 +5,7 @@ TextView::TextView()
 	
 }
 
-void TextView::draw(sf::Window& window)
+void TextView::draw(sf::RenderWindow& window)
 {
 	
 }

@@ -3,16 +3,16 @@
 #include "Components/GameComponent.h"
 
 #define GAME_TITLE "Icy Tower"
-#define WIDTH 800
-#define HEIGHT 800
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
 
 Controller::Controller():
 	m_activeMode(GAME),
-	m_window(sf::VideoMode(WIDTH, HEIGHT), GAME_TITLE, sf::Style::Close)
+	m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_TITLE, sf::Style::Close)
 {
 	buildComponents();
 
-	m_window.setFramerateLimit(60);
+	m_window.setFramerateLimit(90);
 }
 
 void Controller::run()
@@ -21,7 +21,7 @@ void Controller::run()
 	
 	while (m_window.isOpen())
 	{
-		m_window.display();
+		m_window.clear();
 
 		for (auto event = sf::Event{}; m_window.pollEvent(event); )
 		{
@@ -36,15 +36,16 @@ void Controller::run()
 			}
 		}
 
-		const auto deltaTime = m_clock.restart();
-		
+		m_components[m_activeMode]->updateView();
 		m_components[m_activeMode]->draw(m_window);
+
+		m_window.display();
 	}
 }
 
 void Controller::buildComponents()
 {
-	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode) });
+	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, WINDOW_HEIGHT) });
 }
 
 void Controller::changeMode(Mode mode, std::map<std::string, std::string> metadata)
