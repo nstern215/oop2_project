@@ -1,9 +1,9 @@
 #include "Views/BaseView.h";
 
-void BaseView::draw(sf::RenderWindow& window)
-{
-	
-}
+//void BaseView::draw(sf::RenderWindow& window)
+//{
+//	
+//}
 
 sf::Vector2f BaseView::getPosition() const
 {

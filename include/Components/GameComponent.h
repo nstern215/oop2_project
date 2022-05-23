@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Tower.h"
+#include "Player.h"
 
 class Controller;
 
@@ -18,4 +19,6 @@ public:
 
 private:
 	std::unique_ptr<Tower> m_tower;
+
+	std::unique_ptr<Player> m_player;
 };

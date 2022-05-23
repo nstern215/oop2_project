@@ -4,7 +4,22 @@
 class Player
 {
 public:
-	void draw(sf::RenderWindow& window);
+	Player(int windowHeight);
+
+	void draw(sf::RenderWindow& window) const;
+
+	void handleCollision();
+
+	void updatePosition(sf::Vector2f update) const;
+
+	void jump();
+
+	void sideMove(int x, int y);
+
+	bool hitWAll();
+
+	sf::Vector2f getPosition() const;
+
 private:
-	PlayerView m_view;
+	std::unique_ptr<PlayerView> m_view;
 };
