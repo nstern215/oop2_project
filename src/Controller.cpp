@@ -1,6 +1,9 @@
 #include "Controller.h"
 
 #include "Components/GameComponent.h"
+#include "Components/MenuComponent.h"
+#include "Components/TutorialComponent.h"
+#include "Components/WelcomeComponent.h"
 
 #define GAME_TITLE "Icy Tower"
 #define WINDOW_WIDTH 800
@@ -45,7 +48,10 @@ void Controller::run()
 
 void Controller::buildComponents()
 {
-	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, WINDOW_HEIGHT) });
+	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, WINDOW_HEIGHT, this) });
+	m_components.insert({ OPENING_SCREEN, std::make_unique<WelcomeComponent>(&Controller::changeMode, this) });
+	m_components.insert({ TUTORIAL, std::make_unique<TutorialComponent>(&Controller::changeMode, this) });
+	m_components.insert({ MENU, std::make_unique<MenuComponent>(&Controller::changeMode, this) });
 }
 
 void Controller::changeMode(Mode mode, std::map<std::string, std::string> metadata)

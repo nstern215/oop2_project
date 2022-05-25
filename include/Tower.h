@@ -5,15 +5,15 @@
 #include "Floor.h"
 #include "FloorGenerator.h"
 
-enum TowerState
-{
-	PLAY = 0,
-	PAUSE = 1
-};
-
 class Tower
 {
 public:
+	enum TowerState
+	{
+		PLAY = 0,
+		PAUSE = 1
+	};
+	
 	Tower(int windowHeight);
 	
 	void play();

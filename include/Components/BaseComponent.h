@@ -8,14 +8,22 @@
 
 class Controller;
 
+using Metadata = std::map<std::string, std::string>;
+
 class BaseComponent
 {
 public:
+	enum ComponentMode
+	{
+		STOP = 0,
+		PLAY = 1
+	};
+	
 	BaseComponent() = default;
 	virtual ~BaseComponent() = default;
 
 	virtual void active();
-	virtual void active(std::map<std::string, std::string>& metadata) = 0;
+	virtual void active(Metadata& metadata) = 0;
 	virtual void draw(sf::RenderWindow& window) = 0;
 	
 	virtual void eventHandler(sf::RenderWindow& window, sf::Event& event) = 0;
@@ -23,6 +31,10 @@ public:
 	virtual void updateView() = 0;
 
 protected:
-	void (Controller::*m_changeModeFunc)(Mode, std::map<std::string, std::string>);
+	void (Controller::*m_changeModeFunc)(Mode, Metadata);
 	sf::Clock m_clock;
+
+	Controller* m_controller = nullptr;
+
+	ComponentMode m_mode = STOP;
 };

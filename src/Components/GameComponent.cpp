@@ -1,12 +1,13 @@
 #include "Components/GameComponent.h"
 
-GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), int windowHeight):
+GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, Metadata), int windowHeight, Controller* controller):
 	m_tower(std::make_unique<Tower>(windowHeight))
 {
 	m_changeModeFunc = changeModeFunc;
+	m_controller = controller;
 }
 
-void GameComponent::active(std::map<std::string, std::string>& metadata)
+void GameComponent::active(Metadata& metadata)
 {
 	m_clock.restart();
 	m_tower->play();

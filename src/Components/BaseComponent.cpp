@@ -2,6 +2,6 @@
 
 void BaseComponent::active()
 {
-	std::map<std::string, std::string> map;
-	active(map);
+	Metadata metadata;
+	active(metadata);
 }
