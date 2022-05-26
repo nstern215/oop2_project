@@ -12,14 +12,15 @@ public:
 
 	void updatePosition(sf::Vector2f update) const;
 
-	void jump();
+	void playerDirection(sf::Keyboard::Key key);
 
-	void sideMove(int x, int y);
-
-	bool hitWAll();
+	void playerMove(float deltaTime);
 
 	sf::Vector2f getPosition() const;
 
 private:
+
 	std::unique_ptr<PlayerView> m_view;
+
+	float m_playerSpeed;
 };

@@ -18,6 +18,7 @@ void GameComponent::updateView()
 	const auto deltaTime = m_clock.restart().asSeconds();
 	
 	m_tower->move(deltaTime);
+	m_player->playerMove(deltaTime);
 }
 
 
@@ -34,8 +35,9 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 	case sf::Event::KeyReleased:
 		if (event.key.code == sf::Keyboard::Key::Add)
 			m_tower->increseSpeed();
-		if (event.key.code == sf::Keyboard::Key::Right)
-			m_player->sideMove(0 , 1);
+	case sf::Event::KeyPressed:
+		m_player->playerDirection(event.key.code);
+
 		break;
 	}
 	

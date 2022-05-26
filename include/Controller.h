@@ -23,5 +23,4 @@ private:
 	std::map<Mode, std::unique_ptr<BaseComponent>> m_components;
 
 	sf::RenderWindow m_window;
-	sf::Clock m_clock;
 };

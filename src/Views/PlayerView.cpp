@@ -1,8 +1,11 @@
 #include "Views/PlayerView.h"
+#include "Resources.h"
 
 #define PLAYER_SIZE 50
 
-PlayerView::PlayerView(int windowHeight)
+PlayerView::PlayerView(int windowHeight):
+	m_animation(Resources::instance().animationData(), Direction::Right, m_sprite)
+
 {
 	buildPlayer();
 	float x = (windowHeight - PLAYER_SIZE) / 2;
@@ -18,6 +21,8 @@ void PlayerView::draw(sf::RenderWindow& window)
 
 void PlayerView::buildPlayer()
 {
+	m_dir = Direction::Stay;
+
 	m_shape.setSize({ static_cast<float>(PLAYER_SIZE), static_cast<float>(PLAYER_SIZE)});
 	m_shape.setFillColor(sf::Color::Blue);
 }
@@ -29,10 +34,16 @@ void PlayerView::setPosition(sf::Vector2f position)
 
 void PlayerView::move(sf::Vector2f move)
 {
-	auto newPosition = m_shape.getPosition();
-
-	newPosition.x += move.x;
-	newPosition.y += move.y;
-
-	setPosition(newPosition);
+	m_shape.move(move);
 }
+
+void PlayerView::setDirection(Direction dir)
+{
+	m_dir = dir;
+}
+
+Direction PlayerView::getDirection()
+{
+	return m_dir;
+}
+

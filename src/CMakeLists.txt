@@ -10,5 +10,6 @@
 												"Views/BaseView.cpp"
 												"Views/TextView.cpp"
 												"Views/PlayerView.cpp"
-												"Views/FloorView.cpp"
-												)
+												"Direction.cpp"
+												"Animation.cpp"
+												"Views/FloorView.cpp")
