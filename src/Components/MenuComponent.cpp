@@ -4,7 +4,7 @@
 
 #include "Controller.h"
 
-MenuComponent::MenuComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize):
+MenuComponent::MenuComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize) :
 	m_WINDOW_SIZE(windowSize),
 	m_selectedItem(m_items.end())
 {
@@ -30,28 +30,44 @@ void MenuComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 		else if (event.key.code == sf::Keyboard::Key::Up)
 			selectPreviousItem();
 		else if (event.key.code == sf::Keyboard::Key::Space ||
-				event.key.code == sf::Keyboard::Key::Enter)
+			event.key.code == sf::Keyboard::Key::Enter)
 		{
 			//execute command
 		}
 		break;
+	case sf::Event::MouseMoved:
+		//const auto mousePosition = event.mouseMove
+
+		for (auto i = m_items.begin(); i != m_items.end(); ++i)
+		{
+			if (m_selectedItem != i && i->getGlobalBound().contains(event.mouseMove.x, event.mouseMove.y))
+			{
+				m_selectedItem->selectedItem(false);
+				m_selectedItem = i;
+				m_selectedItem->selectedItem(true);
+				break;
+			}
+		}
+		break;
 	}
+
+	//todo: add mouse hover support
 }
 
 void MenuComponent::updateView()
 {
-	
+
 }
 
 void MenuComponent::active(Metadata& metadata)
 {
-	
+
 }
 
 void MenuComponent::buildMenu()
 {
 	std::vector<std::string> items = { "New Game", "Tutorial", "High Score", "Settings", "Exit" };
-	for(const auto& item : items)
+	for (const auto& item : items)
 		addMenuItem(item);
 
 	setItemsPosition();
