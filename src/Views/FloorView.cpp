@@ -40,3 +40,8 @@ void FloorView::move(sf::Vector2f move)
 {
 	m_rect.move(move);
 }
+
+sf::FloatRect FloorView::getGlobalBound() const
+{
+	return m_rect.getGlobalBounds();
+}
