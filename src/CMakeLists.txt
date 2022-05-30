@@ -18,4 +18,5 @@
 												"Views/TextView.cpp"
 												"Views/PlayerView.cpp"
 												"Views/FloorView.cpp"
+												"Views/MenuItemView.cpp"
 												)
