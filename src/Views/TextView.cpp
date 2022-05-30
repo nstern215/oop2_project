@@ -71,3 +71,14 @@ void TextView::buildTextFrame()
 	m_textFrame.setPosition(textBound.left - m_frameMargin, textBound.top - m_frameMargin);
 	m_textFrame.setSize({textBound.width + 2 * m_frameMargin, textBound.height + 2 * m_frameMargin });
 }
+
+void TextView::setOutline(sf::Color color, int thikness)
+{
+	m_textFrame.setOutlineColor(color);
+	m_textFrame.setOutlineThickness(thikness);
+}
+
+sf::FloatRect TextView::getGlobalBound() const
+{
+	return m_textFrame.getGlobalBounds();
+}
