@@ -11,6 +11,7 @@ public:
 	virtual sf::Vector2f getPosition() const = 0;
 
 	virtual void move(sf::Vector2f move);
+	virtual sf::FloatRect getGlobalBound() const = 0;
 
 protected:
 	sf::Vector2f m_position;
