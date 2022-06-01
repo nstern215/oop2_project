@@ -26,6 +26,8 @@ public:
 private:
 	void buildTextFrame();
 
+	std::string str;
+	
 	sf::Text m_sfText;
 	sf::RectangleShape m_textFrame;
 
