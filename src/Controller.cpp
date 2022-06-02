@@ -10,7 +10,7 @@
 #define WINDOW_HEIGHT 800
 
 Controller::Controller():
-	m_activeMode(GAME),
+	m_activeMode(MENU),
 	m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_TITLE, sf::Style::Close)
 {
 	buildComponents();
@@ -51,7 +51,7 @@ void Controller::buildComponents()
 	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, WINDOW_HEIGHT, this) });
 	m_components.insert({ OPENING_SCREEN, std::make_unique<WelcomeComponent>(&Controller::changeMode, this) });
 	m_components.insert({ TUTORIAL, std::make_unique<TutorialComponent>(&Controller::changeMode, this) });
-	m_components.insert({ MENU, std::make_unique<MenuComponent>(&Controller::changeMode, this) });
+	m_components.insert({ MENU, std::make_unique<MenuComponent>(&Controller::changeMode, this, m_window.getSize()) });
 }
 
 void Controller::changeMode(Mode mode, std::map<std::string, std::string> metadata)
