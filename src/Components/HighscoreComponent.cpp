@@ -1,7 +1,10 @@
 #include "Components/HighscoreComponent.h"
 
+#include "Resources.h"
+
 HighscoreComponent::HighscoreComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize, std::string path) :
 	m_scoresFile(path),
+	m_boardView(windowSize),
 	m_inputText("", "Tower", 60)
 {
 	m_changeModeFunc = changeModeFunc;
@@ -68,9 +71,13 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 
 void HighscoreComponent::draw(sf::RenderWindow& window)
 {
-	for (const auto& scoreView : m_scoreViews)
-		scoreView->draw(window);
+	window.draw(m_background);
+	
+	/*for (const auto& scoreView : m_scoreViews)
+		scoreView->draw(window);*/
 
+	m_boardView.draw(window);
+	
 	if (m_isReadingInput)
 		m_inputText.draw(window);
 }
@@ -82,19 +89,19 @@ void HighscoreComponent::updateView()
 
 void HighscoreComponent::buildView()
 {
-	m_inputText.setTextColor(sf::Color::Red);
-	m_inputText.setFontSize(75);
-	m_inputText.setPosition({ 150, 50 });
+	buildBackground();
+	m_boardView.resetView(m_scoresFile.getLines());
 
-	for (const auto& line : m_scoresFile)
-		m_scoreViews.push_back(std::make_unique<TextView>(line, "Tower", 60));
+	const auto bound = m_boardView.getGlobalBound();
 
-	for (const auto& line : m_scoreViews)
-	{
-		line->setTextColor(sf::Color::Yellow);
-	}
+	m_inputText.setTextColor(sf::Color::Black);
+	m_inputText.setText("Your name: ");
+}
 
-	setPosition();
+void HighscoreComponent::buildBackground()
+{
+	m_background.setSize({ static_cast<float>(m_windowSize.x), static_cast<float>(m_windowSize.y) });
+	m_background.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
 }
 
 void HighscoreComponent::setPosition()

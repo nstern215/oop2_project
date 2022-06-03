@@ -21,5 +21,5 @@
 												"Views/PlayerView.cpp"
 												"Views/FloorView.cpp"
 												"Views/MenuItemView.cpp"
-												"Views/HighscoreView.cpp"
+												"Views/ScoreBoardView.cpp"
 												)

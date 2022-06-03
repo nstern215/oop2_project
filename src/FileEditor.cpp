@@ -49,3 +49,8 @@ void FileEditor::createFile()
 	file.open(m_path);
 	file.close();
 }
+
+std::vector<std::string> FileEditor::getLines() const
+{
+	return m_lines;
+}

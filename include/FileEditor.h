@@ -10,6 +10,9 @@ public:
 	void loadFile();
 	std::vector<std::string>::iterator begin();
 	std::vector<std::string>::iterator end();
+
+	std::vector<std::string> getLines() const;
+	
 	void updateFile();
 
 private:
