@@ -2,6 +2,7 @@
 #include "BaseComponent.h"
 #include "Tower.h"
 #include "Player.h"
+#include "box2d/box2d.h"
 
 class Controller;
 
@@ -17,7 +18,14 @@ public:
 
 	void updateView() override;
 
+	void buildWorld();
+
 private:
+
+	b2World m_world;
+
+	b2Body* m_ground;
+
 	std::unique_ptr<Tower> m_tower;
 
 	std::unique_ptr<Player> m_player;

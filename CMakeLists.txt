@@ -53,6 +53,7 @@ target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE $<$<CONFIG:DEBUG>:-fsanitiz
 add_subdirectory (include)
 add_subdirectory (src)
 add_subdirectory (resources)
+add_subdirectory (external/box2d/src)
 
 if (MSVC)
 	set (SFML_STATIC_LIBRARIES TRUE)
@@ -66,3 +67,5 @@ set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audi
 target_link_libraries (${CMAKE_PROJECT_NAME} sfml-audio sfml-graphics sfml-main)
 
 configure_file (C:/SFML/SFML-2.5.1/bin/openal32.dll ${CMAKE_BINARY_DIR} COPYONLY)
+
+target_link_libraries (${CMAKE_PROJECT_NAME} box2d)

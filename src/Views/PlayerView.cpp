@@ -3,9 +3,7 @@
 
 #define PLAYER_SIZE 50
 
-PlayerView::PlayerView(int windowHeight):
-	m_animation(Resources::instance().animationData(), Direction::Right, m_sprite)
-
+PlayerView::PlayerView(int windowHeight)
 {
 	buildPlayer();
 	float x = (windowHeight - PLAYER_SIZE) / 2;
@@ -21,8 +19,6 @@ void PlayerView::draw(sf::RenderWindow& window)
 
 void PlayerView::buildPlayer()
 {
-	m_dir = Direction::Stay;
-
 	m_shape.setSize({ static_cast<float>(PLAYER_SIZE), static_cast<float>(PLAYER_SIZE)});
 	m_shape.setFillColor(sf::Color::Blue);
 }
@@ -37,13 +33,33 @@ void PlayerView::move(sf::Vector2f move)
 	m_shape.move(move);
 }
 
-void PlayerView::setDirection(Direction dir)
+
+void PlayerView::buildBody(b2World &world)
 {
-	m_dir = dir;
+	m_bodyDef.type = b2_dynamicBody;
+	m_bodyDef.position.Set(5.0f, 5.0f);
+	m_body = world.CreateBody(&m_bodyDef);
+
+	m_dynamicBox.SetAsBox(1.0f, 1.0f);
+
+	m_fixtureDef.shape = &m_dynamicBox;
+	m_fixtureDef.density = 1.0f;
+	m_fixtureDef.friction = 0.3f;
+	m_body->CreateFixture(&m_fixtureDef);
 }
 
-Direction PlayerView::getDirection()
+b2Vec2 PlayerView::getBodyVelocity()
 {
-	return m_dir;
+ 	return m_body->GetLinearVelocity();
+}
+
+void PlayerView::setBodyVelocity(b2Vec2 vel)
+{
+	m_body->SetLinearVelocity(vel);
+}
+
+b2Vec2 PlayerView::getBodyPosition()
+{
+	return m_body->GetPosition();
 }
 

@@ -3,8 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-#include "AnimationData.h"
-
 class Resources
 {
 public:
@@ -15,8 +13,6 @@ public:
 	Resources& operator=(const Resources&) = delete;
 
 	const sf::Texture& texture() const { return m_texture; }
-
-	const AnimationData& animationData() { return m_data; }
 
 	//sf::Texture* getTexture(std::string textureName);
 	//sf::Font* getFont(std::string fontName);
@@ -33,6 +29,4 @@ private:
 	//void loadAudio();
 
 	sf::Texture m_texture;
-	AnimationData m_data;
-
 };

@@ -1,58 +1,59 @@
 #include "Player.h"
 
-Player::Player(int windowHeight):
+Player::Player(int windowHeight) :
 	m_view(std::make_unique<PlayerView>(windowHeight)),
 	m_playerSpeed(500)
 {}
 
+void Player::buildPlayerBody(b2World& world)
+{
+	m_view->buildBody(world);
+}
 
 void Player::draw(sf::RenderWindow& window) const
 {
 	m_view->draw(window);
 }
 
-void Player::handleCollision()
+void Player::updatePosition(sf::Vector2f update) const
 {
-	
+	m_view->setPosition(update);
 }
-
-//void Player::updatePosition(sf::Vector2f update) const
-//{
-//	m_view->move(update);
-//}
 
 sf::Vector2f Player::getPosition() const
 {
 	return m_view->getPosition();
 }
 
-void Player::playerDirection(sf::Keyboard::Key key)
-{
-	Direction dir;
+void Player::keyPress(sf::Keyboard::Key key)
+  {
+	b2Vec2 vel = m_view->getBodyVelocity();
 
 	switch (key)
 	{
+	case sf::Keyboard::Space:
+ 		vel.y = -5;
+		break;
 	case sf::Keyboard::Left:
-		dir = Direction::Left;
+		vel.x = -2;
 		break;
 	case sf::Keyboard::Right:
-		dir = Direction::Right;
+		vel.x = 2;
 		break;
-	case sf::Keyboard::Up:
-		dir = Direction::Up;
-		break;
-	case sf::Keyboard::Down:
-		dir = Direction::Down;
-		break;
+	default:
+			break;
 	}
 
-	m_view->setDirection(dir);
+	m_view->setBodyVelocity(vel);
+
 }
 
-void Player::playerMove(float deltaTime)
+b2Vec2 Player::getPlayerPosition()
 {
-	sf::Vector2f upComingMove = toVector(m_view->getDirection())*m_playerSpeed*deltaTime;
-	
-	m_view->move(upComingMove);
-	m_view->setDirection(Direction::Stay);
+	return m_view->getBodyPosition();
+}
+
+void Player::handleCollision()
+{
+
 }
