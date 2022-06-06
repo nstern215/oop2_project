@@ -13,10 +13,10 @@ public:
 
 	std::vector<std::string> getLines() const;
 	
-	void updateFile();
+	void updateFile(std::vector<std::string>& lines) const;
 
 private:
-	void createFile();
+	void createFile() const;
 	
 	std::string m_path;
 	std::vector<std::string> m_lines;

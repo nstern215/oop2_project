@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
 #include "FileEditor.h"
+#include "ScoresManager.h"
 #include "Views/ScoreBoardView.h"
 #include "Views/TextView.h"
 
@@ -15,19 +16,21 @@ public:
 
 private:
 	void buildView();
-	void setPosition();
 	void buildBackground();
-
+	
 	ScoreBoardView m_boardView;
 	
 	FileEditor m_scoresFile;
+	ScoresManager m_scores;
+	
 	TextView m_inputText;
 	bool m_isReadingInput = true;
 
+	const std::string m_INPUT_BASE_STRING = "Your name: ";
 	const std::string m_BACKGROUND_TEXTURE = "bricks_background";
 	const int m_A_ASCII_CODE = 65;
 
-	int m_newScore;
+	int m_newScore = 0;
 
 	sf::RectangleShape m_background;
 	

@@ -3,8 +3,9 @@
 #include "Resources.h"
 
 HighscoreComponent::HighscoreComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize, std::string path) :
-	m_scoresFile(path),
 	m_boardView(windowSize),
+	m_scoresFile(path),
+	m_scores(10, m_scoresFile.getLines()),
 	m_inputText("", "Tower", 60)
 {
 	m_changeModeFunc = changeModeFunc;
@@ -21,7 +22,8 @@ void HighscoreComponent::active(Metadata& metadata)
 	if (metadata.count("score") != 0)
 	{
 		m_newScore = stoi(metadata["score"]);
-		m_isReadingInput = true;
+		if (m_scores.isNewScore(m_newScore))
+			m_isReadingInput = true;
 	}
 }
 
@@ -56,12 +58,18 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 			}
 			else if (event.key.code == sf::Keyboard::BackSpace)
 			{
-				input.pop_back();
+				if (m_inputText.getText() != m_INPUT_BASE_STRING)
+					input.pop_back();
 			}
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
-				//todo: save new score
-				m_isReadingInput = false;
+				if (m_inputText.getText() != m_INPUT_BASE_STRING)
+				{
+					const std::string name = input.substr(m_INPUT_BASE_STRING.length(), input.length());
+					m_scores.addNewScore(name, m_newScore);
+					//todo: save new score
+					m_isReadingInput = false;
+				}
 			}
 
 			m_inputText.setText(input);
@@ -72,12 +80,9 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 void HighscoreComponent::draw(sf::RenderWindow& window)
 {
 	window.draw(m_background);
-	
-	/*for (const auto& scoreView : m_scoreViews)
-		scoreView->draw(window);*/
 
 	m_boardView.draw(window);
-	
+
 	if (m_isReadingInput)
 		m_inputText.draw(window);
 }
@@ -94,27 +99,17 @@ void HighscoreComponent::buildView()
 
 	const auto bound = m_boardView.getGlobalBound();
 
+	const auto x = bound.left;
+	const auto y = bound.height + bound.top + (m_windowSize.y * 0.01f);
+
+	m_inputText.setPosition({ x, y });
+	m_inputText.setBackgroundColor(sf::Color(255, 255, 255, 128));
 	m_inputText.setTextColor(sf::Color::Black);
-	m_inputText.setText("Your name: ");
+	m_inputText.setText(m_INPUT_BASE_STRING);
 }
 
 void HighscoreComponent::buildBackground()
 {
 	m_background.setSize({ static_cast<float>(m_windowSize.x), static_cast<float>(m_windowSize.y) });
 	m_background.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
-}
-
-void HighscoreComponent::setPosition()
-{
-	auto midWindow = m_windowSize.x / 2;
-	float height = 0;
-
-	/*const auto item = std::max_element(m_items.begin(), m_items.end(), [](const auto& item) {return item.getGlobalBound().width; });
-	auto maxItemBound = item->getGlobalBound().width;*/
-
-	for (const auto& item : m_scoreViews)
-	{
-		item->setPosition({ 10, height });
-		height += 10 + item->getGlobalBound().height;
-	}
 }

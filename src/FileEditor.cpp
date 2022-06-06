@@ -38,12 +38,18 @@ void FileEditor::loadFile()
 	input.close();
 }
 
-void FileEditor::updateFile()
+void FileEditor::updateFile(std::vector<std::string>& lines) const
 {
-	
+	std::ofstream output;
+	output.open(m_path);
+
+	for (const auto& line : lines)
+		output << line << std::endl;
+
+	output.close();
 }
 
-void FileEditor::createFile()
+void FileEditor::createFile() const
 {
 	std::ofstream file;
 	file.open(m_path);

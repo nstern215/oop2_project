@@ -6,6 +6,7 @@
 												"Tower.cpp"
 												"FloorGenerator.cpp"
 												"FileEditor.cpp"
+												"ScoresManager.cpp"
 
 												#components
 												"Components/BaseComponent.cpp"
