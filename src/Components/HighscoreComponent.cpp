@@ -67,7 +67,9 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 				{
 					const std::string name = input.substr(m_INPUT_BASE_STRING.length(), input.length());
 					m_scores.addNewScore(name, m_newScore);
-					//todo: save new score
+
+					m_scoresFile.updateFile(m_scores.getScoresList());
+					
 					m_isReadingInput = false;
 				}
 			}

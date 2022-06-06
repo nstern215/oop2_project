@@ -13,7 +13,7 @@ public:
 
 	std::vector<std::string> getLines() const;
 	
-	void updateFile(std::vector<std::string>& lines) const;
+	void updateFile(const std::vector<std::string>& lines) const;
 
 private:
 	void createFile() const;

@@ -38,7 +38,7 @@ void FileEditor::loadFile()
 	input.close();
 }
 
-void FileEditor::updateFile(std::vector<std::string>& lines) const
+void FileEditor::updateFile(const std::vector<std::string>& lines) const
 {
 	std::ofstream output;
 	output.open(m_path);
