@@ -15,8 +15,10 @@ public:
 	void active(Metadata& metadata) override;
 
 private:
-	void buildView();
 	void buildBackground();
+	void buildView();
+	void buildScoreView();
+	void addNewScore();
 	
 	ScoreBoardView m_boardView;
 	

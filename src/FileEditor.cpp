@@ -5,6 +5,7 @@
 FileEditor::FileEditor(std::string& path):
 	m_path(path)
 {
+	loadFile();
 }
 
 std::vector<std::string>::iterator FileEditor::begin()

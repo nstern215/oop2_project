@@ -29,9 +29,8 @@ void ScoresManager::sortScores()
 
 int ScoresManager::extractScoreFromLine(std::string line) const
 {
-	char* charLine = nullptr;
-	strcpy_s(charLine, line.size(), line.c_str());
-
+	char* charLine = const_cast<char*>(line.c_str());
+	
 	char* token = strtok(charLine, " ");
 
 	char* prev = nullptr;
@@ -63,6 +62,6 @@ void ScoresManager::addNewScore(std::string name, int score)
 	line += " ";
 	line += std::to_string(score);
 	
-	m_scores.emplace_back(name);
+	m_scores.emplace_back(line);
 	sortScores();
 }

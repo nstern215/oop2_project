@@ -25,6 +25,9 @@ void HighscoreComponent::active(Metadata& metadata)
 		if (m_scores.isNewScore(m_newScore))
 			m_isReadingInput = true;
 	}
+
+	m_newScore = 199;
+	m_isReadingInput = true;
 }
 
 void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
@@ -64,14 +67,7 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 			else if (event.key.code == sf::Keyboard::Enter)
 			{
 				if (m_inputText.getText() != m_INPUT_BASE_STRING)
-				{
-					const std::string name = input.substr(m_INPUT_BASE_STRING.length(), input.length());
-					m_scores.addNewScore(name, m_newScore);
-
-					m_scoresFile.updateFile(m_scores.getScoresList());
-					
-					m_isReadingInput = false;
-				}
+					addNewScore();
 			}
 
 			m_inputText.setText(input);
@@ -97,7 +93,12 @@ void HighscoreComponent::updateView()
 void HighscoreComponent::buildView()
 {
 	buildBackground();
-	m_boardView.resetView(m_scoresFile.getLines());
+	buildScoreView();
+}
+
+void HighscoreComponent::buildScoreView()
+{
+	m_boardView.resetView(m_scores.getScoresList());
 
 	const auto bound = m_boardView.getGlobalBound();
 
@@ -114,4 +115,17 @@ void HighscoreComponent::buildBackground()
 {
 	m_background.setSize({ static_cast<float>(m_windowSize.x), static_cast<float>(m_windowSize.y) });
 	m_background.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
+}
+
+void HighscoreComponent::addNewScore()
+{
+	const std::string input = m_inputText.getText();
+	const std::string name = input.substr(m_INPUT_BASE_STRING.length(), input.length());
+	m_scores.addNewScore(name, m_newScore);
+
+	m_scoresFile.updateFile(m_scores.getScoresList());
+
+	m_isReadingInput = false;
+
+	buildScoreView();
 }
