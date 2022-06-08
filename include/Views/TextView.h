@@ -7,6 +7,8 @@ class TextView : public BaseView
 {
 public:
 	TextView(std::string text, std::string fontName, unsigned int fontSize, int frameMargin = DEFAULT_FRAME_MARGIN);
+	virtual ~TextView() = default;
+	
 	virtual void draw(sf::RenderWindow& window) override;
 
 	sf::Vector2f getPosition() const override;
@@ -26,6 +28,8 @@ public:
 private:
 	void buildTextFrame();
 
+	std::string str;
+	
 	sf::Text m_sfText;
 	sf::RectangleShape m_textFrame;
 

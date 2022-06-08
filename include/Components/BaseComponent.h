@@ -34,6 +34,8 @@ protected:
 	void (Controller::*m_changeModeFunc)(Mode, Metadata);
 	sf::Clock m_clock;
 
+	sf::Vector2u m_windowSize;
+	
 	Controller* m_controller = nullptr;
 
 	ComponentMode m_mode = STOP;

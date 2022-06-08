@@ -5,6 +5,7 @@
 class BaseView
 {
 public:
+	virtual ~BaseView() = default;
 	virtual void draw(sf::RenderWindow& window) = 0;
 
 	virtual  void setPosition(sf::Vector2f position) = 0;

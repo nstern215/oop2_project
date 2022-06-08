@@ -2,3 +2,4 @@
 
 #font
 configure_file ("Tower.ttf" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("bricks_background.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
