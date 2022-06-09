@@ -24,4 +24,6 @@ private:
 
 	sf::RenderWindow m_window;
 	sf::Clock m_clock;
+
+	const std::string m_HIGH_SCORE_FILE = "highscore.txt";
 };

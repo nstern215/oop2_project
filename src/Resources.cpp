@@ -25,16 +25,24 @@ void Resources::loadResources()
 {
 	loadAudio();
 	loadFonts();
-	loadImages();
+	loadTextures();
 	loadSpritesheet();
 }
 
-sf::Font* Resources::getFont(std::string& fontName)
+sf::Font* Resources::getFont(std::string fontName)
 {
 	if (!m_fonts.count(fontName))
 		return nullptr;
 
 	return m_fonts[fontName].get();
+}
+
+sf::Texture* Resources::getTexture(std::string textureName)
+{
+	if (!m_textures.count(textureName))
+		return nullptr;
+
+	return m_textures[textureName].get();
 }
 
 void Resources::loadAudio()
@@ -48,9 +56,10 @@ void Resources::loadFonts()
 	m_fonts["Tower"]->loadFromFile("Tower.ttf");
 }
 
-void Resources::loadImages()
+void Resources::loadTextures()
 {
-	
+	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
+	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
 }
 
 void Resources::loadSpritesheet()

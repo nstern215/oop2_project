@@ -5,6 +5,8 @@
 												"Floor.cpp"
 												"Tower.cpp"
 												"FloorGenerator.cpp"
+												"FileEditor.cpp"
+												"ScoresManager.cpp"
 
 												#components
 												"Components/BaseComponent.cpp"
@@ -12,6 +14,7 @@
 												"Components/WelcomeComponent.cpp"
 												"Components/TutorialComponent.cpp"
 												"Components/MenuComponent.cpp"
+												"Components/HighscoreComponent.cpp"
 
 												#views
 												"Views/BaseView.cpp"
@@ -19,4 +22,5 @@
 												"Views/PlayerView.cpp"
 												"Views/FloorView.cpp"
 												"Views/MenuItemView.cpp"
+												"Views/ScoreBoardView.cpp"
 												)

@@ -2,7 +2,8 @@
 
 #include "Resources.h"
 
-TextView::TextView(std::string text, std::string fontName, unsigned int fontSize, int frameMargin)
+TextView::TextView(std::string text, std::string fontName, unsigned int fontSize, int frameMargin):
+	str(text)
 {
 	m_sfText.setString(text);
 	m_sfText.setFont(*Resources::instance()->getFont(fontName));
