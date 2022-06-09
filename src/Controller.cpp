@@ -64,3 +64,9 @@ void Controller::changeMode(Mode mode, std::map<std::string, std::string> metada
 	m_activeMode = mode;
 	m_components[mode]->active(metadata);
 }
+
+void Controller::exitGame()
+{
+	m_window.close();
+	exit(EXIT_SUCCESS);
+}

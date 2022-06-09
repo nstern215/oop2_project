@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseComponent.h"
+#include "Command.h"
+#include "MenuCommands.h"
 #include "Views/MenuItemView.h"
 
 class MenuComponent : public BaseComponent
@@ -12,14 +14,18 @@ public:
 	void active(Metadata& metadata) override;
 
 private:
+	typedef std::pair<std::unique_ptr<MenuItemView>, std::unique_ptr<Command>> option;
+	
 	void buildMenu();
-	void addMenuItem(const std::string& title);
+	std::unique_ptr<MenuItemView> createMenuItem(const std::string& title);
 	void setItemsPosition();
 	void selectNextItem();
 	void selectPreviousItem();
-	
-	std::vector<MenuItemView> m_items;
-	std::vector<MenuItemView>::iterator m_selectedItem;
+
+	std::vector<option> m_items;
+	std::vector<option>::iterator m_selectedItem;
+	/*std::vector<std::unique_ptr<MenuItemView>> m_items;
+	std::vector<std::unique_ptr<MenuItemView>>::iterator m_selectedItem;*/
 	
 	const std::string m_MENU_ITEM_FONT = "Tower";
 	const int m_MENU_ITEM_FONT_SIZE = 60;
