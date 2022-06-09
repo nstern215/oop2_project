@@ -26,7 +26,7 @@ private:
 	ScoresManager m_scores;
 	
 	TextView m_inputText;
-	bool m_isReadingInput = true;
+	bool m_isReadingInput = false;
 
 	const std::string m_INPUT_BASE_STRING = "Your name: ";
 	const std::string m_BACKGROUND_TEXTURE = "bricks_background";

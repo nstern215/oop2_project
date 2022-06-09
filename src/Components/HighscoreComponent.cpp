@@ -25,9 +25,6 @@ void HighscoreComponent::active(Metadata& metadata)
 		if (m_scores.isNewScore(m_newScore))
 			m_isReadingInput = true;
 	}
-
-	m_newScore = 199;
-	m_isReadingInput = true;
 }
 
 void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
@@ -36,17 +33,19 @@ void HighscoreComponent::eventHandler(sf::RenderWindow& window, sf::Event& event
 	{
 	case sf::Event::KeyReleased:
 
-		if (!m_isReadingInput && (
-			event.key.code == sf::Keyboard::Key::Space ||
-			event.key.code == sf::Keyboard::Key::Enter ||
-			event.key.code == sf::Keyboard::Key::Escape))
+		if (!m_isReadingInput)
 		{
-			const std::map<std::string, std::string> metadata;
-			const Mode mode = MENU;
+			if (event.key.code == sf::Keyboard::Key::Space ||
+				event.key.code == sf::Keyboard::Key::Enter ||
+				event.key.code == sf::Keyboard::Key::Escape)
+			{
+				const std::map<std::string, std::string> metadata;
+				const Mode mode = MENU;
 
-			(m_controller->*m_changeModeFunc)(mode, metadata);
+				(m_controller->*m_changeModeFunc)(mode, metadata);
+			}
 		}
-		else if (m_isReadingInput)
+		else
 		{
 			std::string input = m_inputText.getText();
 
