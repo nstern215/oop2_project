@@ -2,7 +2,7 @@
 
 #include "FileEditor.h"
 
-FileEditor::FileEditor(std::string& path):
+FileEditor::FileEditor(const std::string& path):
 	m_path(path)
 {
 	loadFile();
