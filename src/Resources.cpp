@@ -45,9 +45,18 @@ sf::Texture* Resources::getTexture(std::string textureName)
 	return m_textures[textureName].get();
 }
 
+sf::Music* Resources::getMusic(std::string musicName)
+{
+	if (!m_audio.count(musicName))
+		return nullptr;
+
+	return m_audio[musicName].get();
+}
+
 void Resources::loadAudio()
 {
-	
+	/*m_audio.insert({ "openning_track", std::make_unique<sf::Music>() });
+	m_audio["openning_track"]->openFromFile("openning_track.mp3");*/
 }
 
 void Resources::loadFonts()

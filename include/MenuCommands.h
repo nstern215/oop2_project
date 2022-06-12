@@ -11,3 +11,9 @@ private:
 	Controller* m_controller;
 	Metadata m_metadata;
 };
+
+class ExitCommand : public Command
+{
+public:
+	void execute() override;
+};
