@@ -3,6 +3,7 @@
 #include "Components/MenuComponent.h"
 
 #include "Controller.h"
+#include "Resources.h"
 
 MenuComponent::MenuComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize) :
 	m_WINDOW_SIZE(windowSize),
@@ -11,47 +12,68 @@ MenuComponent::MenuComponent(void (Controller::* changeModeFunc)(Mode, Metadata)
 	m_changeModeFunc = changeModeFunc;
 	m_controller = controller;
 
+	m_music = new sf::Music();
+	
+	m_music->openFromFile("openning_track.wav");
+	m_music->setVolume(100);
+	m_music->setLoop(true);
+	
+	buildBackground();
 	buildMenu();
 }
 
 void MenuComponent::draw(sf::RenderWindow& window)
 {
+	window.draw(m_background);
+	
 	for (auto& item : m_items)
-		item.draw(window);
+		item.first->draw(window);
 }
 
 void MenuComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 {
+	//auto status = m_music->getStatus();
+	
 	switch (event.type)
 	{
-	case sf::Event::KeyPressed:
-		if (event.key.code == sf::Keyboard::Key::Down)
-			selectNextItem();
-		else if (event.key.code == sf::Keyboard::Key::Up)
-			selectPreviousItem();
-		else if (event.key.code == sf::Keyboard::Key::Space ||
-			event.key.code == sf::Keyboard::Key::Enter)
+	case sf::Event::KeyReleased:
+		switch (event.key.code)
 		{
-			//execute command
+		case sf::Keyboard::Key::Down:
+				selectNextItem();
+				break;
+		case sf::Keyboard::Key::Up:
+				selectPreviousItem();
+				break;
+		case sf::Keyboard::Key::Space:
+		case sf::Keyboard::Key::Enter:
+			
+			m_selectedItem->second->execute();
+			break;
 		}
 		break;
 	case sf::Event::MouseMoved:
-		//const auto mousePosition = event.mouseMove
-
 		for (auto i = m_items.begin(); i != m_items.end(); ++i)
 		{
-			if (m_selectedItem != i && i->getGlobalBound().contains(event.mouseMove.x, event.mouseMove.y))
+			if (m_selectedItem != i && i->first->getGlobalBound().contains(event.mouseMove.x, event.mouseMove.y))
 			{
-				m_selectedItem->selectedItem(false);
+				m_selectedItem->first->selectedItem(false);
 				m_selectedItem = i;
-				m_selectedItem->selectedItem(true);
+				m_selectedItem->first->selectedItem(true);
 				break;
 			}
 		}
 		break;
+	case sf::Event::MouseButtonReleased:
+		if (event.mouseButton.button == sf::Mouse::Button::Left)
+			for (const auto& item : m_items)
+				if (item.first->getGlobalBound().contains(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })))
+				{
+					item.second->execute();
+					break;
+				}
+		break;
 	}
-
-	//todo: add mouse hover support
 }
 
 void MenuComponent::updateView()
@@ -61,59 +83,70 @@ void MenuComponent::updateView()
 
 void MenuComponent::active(Metadata& metadata)
 {
-
+	m_music->play();
 }
 
 void MenuComponent::buildMenu()
 {
-	std::vector<std::string> items = { "New Game", "Tutorial", "High Score", "Settings", "Exit" };
-	for (const auto& item : items)
-		addMenuItem(item);
+	m_items.emplace_back(std::make_pair(createMenuItem("New Game"), std::make_unique<ChangeModeCommand>(GAME, m_controller)));
+	m_items.emplace_back(std::make_pair(createMenuItem("Tutorial"), std::make_unique<ChangeModeCommand>(TUTORIAL, m_controller) ));
+	m_items.emplace_back(std::make_pair(createMenuItem("High Score"), std::make_unique<ChangeModeCommand>(SCORE_BOARD, m_controller) ));
+	//m_items.emplace_back(std::make_pair(createMenuItem("Settings"), std::make_unique<ChangeModeCommand>(, m_controller) ));
+	m_items.emplace_back(std::make_pair(createMenuItem("Exit"), std::make_unique<ExitCommand>() ));
 
 	setItemsPosition();
 
-	m_items.begin()->selectedItem(true);
+	m_items.begin()->first->selectedItem(true);
 	m_selectedItem = m_items.begin();
 }
 
 void MenuComponent::setItemsPosition()
 {
-	auto midWindow = m_WINDOW_SIZE.x / 2;
-	float height = 0;
+	const auto midWindow = m_WINDOW_SIZE.x / 2;
 
-	/*const auto item = std::max_element(m_items.begin(), m_items.end(), [](const auto& item) {return item.getGlobalBound().width; });
-	auto maxItemBound = item->getGlobalBound().width;*/
+	float itemsHeight = 0;
 
+	for (const auto& item : m_items)
+		itemsHeight += item.first->getGlobalBound().height;
+
+	float height = midWindow - itemsHeight / 2;
+	
 	for (auto& item : m_items)
 	{
-		item.setPosition({ 10, height });
-		height += 10 + item.getGlobalBound().height;
+		const auto width = item.first->getGlobalBound().width;
+		item.first->setPosition({ midWindow - (width / 2), height });
+		height += item.first->getGlobalBound().height;
 	}
 }
 
-void MenuComponent::addMenuItem(const std::string& title)
+std::unique_ptr<MenuItemView> MenuComponent::createMenuItem(const std::string& title)
 {
-	m_items.emplace_back(title, m_MENU_ITEM_FONT, m_MENU_ITEM_FONT_SIZE, sf::Color::Green);
+	return std::make_unique<MenuItemView>(title, m_MENU_ITEM_FONT, m_MENU_ITEM_FONT_SIZE, sf::Color::Green);
 }
 
 void MenuComponent::selectNextItem()
 {
-	m_selectedItem->selectedItem(false);
+	m_selectedItem->first->selectedItem(false);
 
 	if (++m_selectedItem == m_items.end())
 		m_selectedItem = m_items.begin();
 
-	m_selectedItem->selectedItem(true);
+	m_selectedItem->first->selectedItem(true);
 }
 
 void MenuComponent::selectPreviousItem()
 {
-	m_selectedItem->selectedItem(false);
+	m_selectedItem->first->selectedItem(false);
 
 	if (m_selectedItem == m_items.begin())
 		m_selectedItem = --m_items.end();
 	else
 		--m_selectedItem;
 
-	m_selectedItem->selectedItem(true);
+	m_selectedItem->first->selectedItem(true);
+}
+void MenuComponent::buildBackground()
+{
+	m_background.setSize({ static_cast<float>(m_WINDOW_SIZE.x), static_cast<float>(m_WINDOW_SIZE.y) });
+	m_background.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
 }

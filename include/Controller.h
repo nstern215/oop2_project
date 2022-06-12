@@ -13,11 +13,12 @@ public:
 	Controller();
 
 	void run();
+	void changeMode(Mode mode, std::map<std::string, std::string> metadata);
+	void exitGame();
 
 private:
 
 	void buildComponents();
-	void changeMode(Mode mode, std::map<std::string, std::string> metadata);
 	
 	Mode m_activeMode;
 	std::map<Mode, std::unique_ptr<BaseComponent>> m_components;

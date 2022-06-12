@@ -11,7 +11,7 @@
 #define WINDOW_HEIGHT 800
 
 Controller::Controller():
-	m_activeMode(SCORE_BOARD),
+	m_activeMode(MENU),
 	m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_TITLE, sf::Style::Close)
 {
 	buildComponents();
@@ -21,6 +21,14 @@ Controller::Controller():
 
 void Controller::run()
 {
+	/*sf::Music music;
+	
+	music.openFromFile("opening_track.wav");
+	music.setVolume(100);
+	music.setLoop(true);
+
+	music.play();*/
+	
 	m_components[m_activeMode]->active();
 	
 	while (m_window.isOpen())
@@ -63,4 +71,10 @@ void Controller::changeMode(Mode mode, std::map<std::string, std::string> metada
 
 	m_activeMode = mode;
 	m_components[mode]->active(metadata);
+}
+
+void Controller::exitGame()
+{
+	m_window.close();
+	exit(EXIT_SUCCESS);
 }

@@ -7,6 +7,8 @@
 												"FloorGenerator.cpp"
 												"FileEditor.cpp"
 												"ScoresManager.cpp"
+												"Command.cpp"
+												"MenuCommands.cpp"
 
 												#components
 												"Components/BaseComponent.cpp"
