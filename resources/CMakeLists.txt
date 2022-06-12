@@ -8,3 +8,6 @@ configure_file ("bricks_background.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
 
 #sound
 configure_file ("opening_track.wav" ${CMAKE_BINARY_DIR} COPYONLY)
+
+#other
+configure_file ("tutorial.txt" ${CMAKE_BINARY_DIR} COPYONLY)

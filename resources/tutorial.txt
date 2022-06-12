@@ -1,0 +1,13 @@
+Welcome to the Icy Tower!
+
+Try to reach higher as you can by jumping over the steps.
+If you fall down - you lose
+If you move slow - you lose
+
+Use the arrow keys to move and hit the space button
+to jump
+Try to run before you jump to get a higher jump
+
+In any case, you can hit the ESC button to pause the game
+
+Press any key to continue
