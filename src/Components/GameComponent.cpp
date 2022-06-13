@@ -7,16 +7,17 @@
 const float PIXEL_PER_METERS = 32.0f;
 const float PI = 3.14159265358979323846f;
 
-GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize):
+GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* controller):
 	m_world(b2Vec2(0.0f, 9.8f)),
 	m_tower(std::make_unique<Tower>(windowSize, &m_world)),
 	m_player(std::make_unique<Player>(&m_world, (m_tower->getFirstFloorPosition()/PIXEL_PER_METERS),
 				(b2Vec2((50.f / 2.0f) / PIXEL_PER_METERS, (50.f / 2.0f) / PIXEL_PER_METERS))))
 {
 	m_changeModeFunc = changeModeFunc;
+	m_controller = controller;
 }
 
-void GameComponent::active(std::map<std::string, std::string>& metadata)
+void GameComponent::active(Metadata& metadata)
 {
 	m_clock.restart();
 	m_tower->play();

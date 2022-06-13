@@ -1,13 +1,28 @@
 ﻿target_sources (${CMAKE_PROJECT_NAME} PRIVATE "main.cpp"
 												"Controller.cpp"
-												"Components/BaseComponent.cpp"
-												"Components/GameComponent.cpp"
 												"Resources.cpp"
 												"Player.cpp"
 												"Floor.cpp"
 												"Tower.cpp"
 												"FloorGenerator.cpp"
+												"FileEditor.cpp"
+												"ScoresManager.cpp"
+												"Command.cpp"
+												"MenuCommands.cpp"
+
+												#components
+												"Components/BaseComponent.cpp"
+												"Components/GameComponent.cpp"
+												"Components/WelcomeComponent.cpp"
+												"Components/TutorialComponent.cpp"
+												"Components/MenuComponent.cpp"
+												"Components/HighscoreComponent.cpp"
+
+												#views
 												"Views/BaseView.cpp"
 												"Views/TextView.cpp"
 												"Views/PlayerView.cpp"
-												"Views/FloorView.cpp")
+												"Views/FloorView.cpp"
+												"Views/MenuItemView.cpp"
+												"Views/ScoreBoardView.cpp"
+												)

@@ -29,3 +29,13 @@ void PlayerView::move(sf::Vector2f move)
 {
 	m_shape.move(move);
 }
+
+sf::FloatRect PlayerView::getGlobalBound() const
+{
+	return m_shape.getGlobalBounds();
+}
+
+sf::Vector2f PlayerView::getPosition() const
+{
+	return m_shape.getPosition();
+}
