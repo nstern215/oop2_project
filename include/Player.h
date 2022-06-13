@@ -12,9 +12,11 @@ public:
 	void keyPress(sf::Keyboard::Key key);
 	sf::Vector2f getPosition() const;
 
-	void setBodyVelocity(b2Vec2 vel);
-	b2Vec2 getBodyVelocity();
-	b2Vec2 getBodyPosition();
+	void update(sf::Time delta) const;
+	
+	void setBodyVelocity(b2Vec2 vel) const;
+	b2Vec2 getBodyVelocity() const;
+	b2Vec2 getBodyPosition() const;
 
 
 private:

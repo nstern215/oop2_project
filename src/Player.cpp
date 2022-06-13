@@ -21,23 +21,41 @@ void Player::buildBody(b2World* world, sf::Vector2f startingPosition, b2Vec2 siz
 	m_body->CreateFixture(&m_fixtureDef);
 }
 
-b2Vec2 Player::getBodyVelocity()
+void Player::update(sf::Time delta) const
+{
+	m_view->update(delta);
+}
+
+b2Vec2 Player::getBodyVelocity() const
 {
 	return m_body->GetLinearVelocity();
 }
 
-void Player::setBodyVelocity(b2Vec2 vel)
+void Player::setBodyVelocity(b2Vec2 vel) const
 {
 	m_body->SetLinearVelocity(vel);
 }
 
-b2Vec2 Player::getBodyPosition()
+b2Vec2 Player::getBodyPosition() const
 {
 	return m_body->GetPosition();
 }
 
 void Player::draw(sf::RenderWindow& window) const
 {
+	const auto v = getBodyVelocity();
+	if (v.x == 0)
+	{
+		if (v.y > 0)
+			m_view->direction(Direction::Up);
+		else
+			m_view->direction(Direction::Stay);
+	}
+	else if (v.x < 0)
+		m_view->direction(Direction::Left);
+	else
+		m_view->direction(Direction::Right);
+	
 	m_view->draw(window);
 }
 
@@ -58,12 +76,15 @@ void Player::keyPress(sf::Keyboard::Key key)
 	switch (key)
 	{
 	case sf::Keyboard::Space:
+		m_view->direction(Direction::Up);
  		vel.y = -5;
 		break;
 	case sf::Keyboard::Left:
+		m_view->direction(Direction::Left);
 		vel.x = -2;
 		break;
 	case sf::Keyboard::Right:
+		m_view->direction(Direction::Right);
 		vel.x = 2;
 		break;
 	default:

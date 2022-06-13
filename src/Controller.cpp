@@ -20,15 +20,7 @@ Controller::Controller():
 }
 
 void Controller::run()
-{
-	/*sf::Music music;
-	
-	music.openFromFile("opening_track.wav");
-	music.setVolume(100);
-	music.setLoop(true);
-
-	music.play();*/
-	
+{	
 	m_components[m_activeMode]->active();
 	
 	while (m_window.isOpen())

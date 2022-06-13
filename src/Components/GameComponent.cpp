@@ -25,8 +25,10 @@ void GameComponent::active(Metadata& metadata)
 
 void GameComponent::updateView()
 {
-	const auto deltaTime = m_clock.restart().asSeconds();
+	const auto deltaTime = m_clock.restart();
 
+	m_player->update(deltaTime);
+	
 	//m_tower->move(deltaTime);
 }
 

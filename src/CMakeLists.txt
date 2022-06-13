@@ -9,6 +9,9 @@
 												"ScoresManager.cpp"
 												"Command.cpp"
 												"MenuCommands.cpp"
+												"Direction.cpp"
+												"Animation.cpp"
+												"AnimationData.cpp"
 
 												#components
 												"Components/BaseComponent.cpp"
