@@ -9,9 +9,9 @@ class Controller;
 class GameComponent : public BaseComponent
 {
 public:
-	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize);
+	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* conrtoller);
 
-	void active(std::map<std::string, std::string>& metadata) override;
+	void active(Metadata& metadata) override;
 	void draw(sf::RenderWindow& window) override;
 
 	void eventHandler(sf::RenderWindow& window, sf::Event& event) override;

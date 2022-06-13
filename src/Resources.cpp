@@ -1,85 +1,77 @@
 #include "Resources.h"
 
-//
-//namespace
-//{
-//    AnimationData playerData()
-//    {
-//        const auto size = sf::Vector2i(40, 40);
-//        const auto initSpace = sf::Vector2i(1, 2);
-//        const auto middleSpace = sf::Vector2i(0, 10);
-//
-//        auto player = AnimationData{};
-//        auto currentStart = initSpace;
-//
-//        auto nextStart = [&]()
-//        {
-//            currentStart += middleSpace;
-//            currentStart.y += size.y;
-//            return currentStart;
-//        };
-//
-//        player.m_data[Direction::Right].emplace_back(currentStart, size);
-//        player.m_data[Direction::Right].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Down].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Down].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Left].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Left].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Up].emplace_back(nextStart(), size);
-//        player.m_data[Direction::Up].emplace_back(nextStart(), size);
-//
-//        return player;
-//    }
-//}
-//
-//Resources& Resources::instance()
-//{
-//    static Resources instance;
-//    return instance;
-//}
-//
-//Resources::Resources()
-//{
-//    if (!m_texture.loadFromFile("Icy Tower - Harold the Homeboy.png"))
-//    {
-//        throw std::runtime_error("Can't load file");
-//    }
-//
-//    m_data = playerData();
-//}
+Resources* Resources::m_instance = nullptr;
+
+Resources* Resources::instance()
+{
+	if (m_instance == nullptr)
+		m_instance = new Resources();
+
+	return m_instance;
+}
 
 
-//Resources::Resources()
-//{
-//	loadResources();
-//}
-//
-//Resources::~Resources()
-//{
-//	
-//}
-//
-//void Resources::loadResources()
-//{
-//
-//}
-//
-//void Resources::loadAudio()
-//{
-//	
-//}
-//
-//void Resources::loadFonts()
-//{
-//	
-//}
-//
-//void Resources::loadImages()
-//{
-//	
-//}
-//
-//void Resources::loadSpritesheet()
-//{
-//	
-//}
+Resources::Resources()
+{
+	loadResources();
+}
+
+Resources::~Resources()
+{
+	delete m_instance;
+}
+
+void Resources::loadResources()
+{
+	loadAudio();
+	loadFonts();
+	loadTextures();
+	loadSpritesheet();
+}
+
+sf::Font* Resources::getFont(std::string fontName)
+{
+	if (!m_fonts.count(fontName))
+		return nullptr;
+
+	return m_fonts[fontName].get();
+}
+
+sf::Texture* Resources::getTexture(std::string textureName)
+{
+	if (!m_textures.count(textureName))
+		return nullptr;
+
+	return m_textures[textureName].get();
+}
+
+sf::Music* Resources::getMusic(std::string musicName)
+{
+	if (!m_audio.count(musicName))
+		return nullptr;
+
+	return m_audio[musicName].get();
+}
+
+void Resources::loadAudio()
+{
+	/*m_audio.insert({ "openning_track", std::make_unique<sf::Music>() });
+	m_audio["openning_track"]->openFromFile("openning_track.mp3");*/
+}
+
+void Resources::loadFonts()
+{
+	m_fonts.insert({ "Tower", std::make_unique<sf::Font>() });
+	m_fonts["Tower"]->loadFromFile("Tower.ttf");
+}
+
+void Resources::loadTextures()
+{
+	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
+	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
+}
+
+void Resources::loadSpritesheet()
+{
+	
+}

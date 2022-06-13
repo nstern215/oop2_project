@@ -14,6 +14,8 @@ public:
 	void setPosition(sf::Vector2f position) override;
 
 	void move(sf::Vector2f move) override;
+
+	sf::FloatRect getGlobalBound() const override;
 private:
 
 	void buildFloor();

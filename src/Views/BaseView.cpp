@@ -1,4 +1,4 @@
-#include "Views/BaseView.h";
+#include "Views/BaseView.h"
 
 //void BaseView::draw(sf::RenderWindow& window)
 //{
