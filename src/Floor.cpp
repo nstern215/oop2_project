@@ -46,9 +46,6 @@ void Floor::updatePosition(sf::Vector2f update) const
 
 	const auto newPosition = m_view->getPosition();
 	b2Vec2 newBodyPosition(newPosition.x / PIXEL_PER_METERS, newPosition.y / PIXEL_PER_METERS);
-
-	
-
 }
 
 sf::Vector2f Floor::getPosition() const

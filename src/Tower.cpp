@@ -37,9 +37,9 @@ void Tower::draw(sf::RenderWindow& window)
 {
 	for (const auto& floor : m_towerFloors)
 	{
-		/*b2Vec2 newPosition = floor->getBodyPosition();
+		b2Vec2 newPosition = floor->getBodyPosition();
 		newPosition *= PIXEL_PER_METERS;
-		floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));*/
+		floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));
 		floor->draw(window);
 	}
 }
@@ -68,7 +68,7 @@ void Tower::buildFloor()
 	const auto [fst, snd] = m_floorGen();
 	auto width = snd * FLOOR_UNIT_WIDTH;
 	auto x = fst.x * FLOOR_UNIT_WIDTH;
-	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 60.0f;
+	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 100.0f;
 
 	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, width, x, y, ++m_floorsBufferCount));
 
