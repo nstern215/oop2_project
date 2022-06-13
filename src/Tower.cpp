@@ -18,7 +18,7 @@ Tower::Tower(sf::Vector2u windowSize, b2World* world) :
 
 void Tower::initiateNewGame()
 {
-	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x, m_windowSize.x / 2, (m_windowSize.y * 9) / 10, m_floorsBufferCount));
+	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x, 0, (m_windowSize.y * 9) / 10, m_floorsBufferCount));
 
 	while (m_towerFloors.size() != 10)
 	{
@@ -37,9 +37,9 @@ void Tower::draw(sf::RenderWindow& window)
 {
 	for (const auto& floor : m_towerFloors)
 	{
-		/*b2Vec2 newPosition = floor->getBodyPosition();
+		b2Vec2 newPosition = floor->getBodyPosition();
 		newPosition *= PIXEL_PER_METERS;
-		floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));*/
+		floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));
 		floor->draw(window);
 	}
 }
