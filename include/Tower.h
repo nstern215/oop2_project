@@ -4,6 +4,7 @@
 
 #include "Floor.h"
 #include "FloorGenerator.h"
+#include "box2d/box2d.h"
 
 enum TowerState
 {
@@ -14,8 +15,8 @@ enum TowerState
 class Tower
 {
 public:
-	Tower(int windowHeight);
-	
+	Tower(sf::Vector2u windowSize, b2World* world);
+		
 	void play();
 	void pause();
 	void reset();
@@ -26,7 +27,12 @@ public:
 
 	void increseSpeed();
 
+	sf::Vector2f getFirstFloorPosition();
+
+
 private:
+
+	void initiateNewGame();
 
 	void buildFloor();
 
@@ -39,5 +45,7 @@ private:
 
 	const FloorGenerator m_floorGen;
 
-	int m_windowHeight;
+	b2World* m_gameWorld;
+
+	sf::Vector2u m_windowSize;
 };

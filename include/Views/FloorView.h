@@ -7,7 +7,7 @@
 class FloorView : public BaseView
 {
 public:
-	FloorView(int width, int xAxis, int floorLevel);
+	FloorView(int width, int floorLevel);
 	void draw(sf::RenderWindow& window) override;
 
 	sf::Vector2f getPosition() const override;
@@ -19,7 +19,6 @@ private:
 	void buildFloor();
 	
 	const int m_width; // 1-10
-	const int m_xAxis; // 1-20
 	const int m_floorLevel;
 
 	sf::RectangleShape m_rect;

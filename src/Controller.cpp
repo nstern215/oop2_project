@@ -45,7 +45,7 @@ void Controller::run()
 
 void Controller::buildComponents()
 {
-	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, WINDOW_HEIGHT) });
+	m_components.insert({ GAME, std::make_unique<GameComponent>(&Controller::changeMode, m_window.getSize()) });
 }
 
 void Controller::changeMode(Mode mode, std::map<std::string, std::string> metadata)

@@ -1,13 +1,39 @@
 #include "Player.h"
 
-Player::Player(int windowHeight) :
-	m_view(std::make_unique<PlayerView>(windowHeight)),
+Player::Player(b2World* gameWorld, sf::Vector2f startingPosition, b2Vec2 size) :
+	m_view(std::make_unique<PlayerView>()),
 	m_playerSpeed(500)
-{}
-
-void Player::buildPlayerBody(b2World& world)
 {
-	m_view->buildBody(world);
+	buildBody(gameWorld, startingPosition, size);
+}
+
+void Player::buildBody(b2World* world, sf::Vector2f startingPosition, b2Vec2 size)
+{
+	m_bodyDef.type = b2_dynamicBody;
+	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+	m_body = world->CreateBody(&m_bodyDef);
+
+	m_dynamicBox.SetAsBox(size.x, size.y);
+
+	m_fixtureDef.shape = &m_dynamicBox;
+	m_fixtureDef.density = 1.0f;
+	m_fixtureDef.friction = 0.3f;
+	m_body->CreateFixture(&m_fixtureDef);
+}
+
+b2Vec2 Player::getBodyVelocity()
+{
+	return m_body->GetLinearVelocity();
+}
+
+void Player::setBodyVelocity(b2Vec2 vel)
+{
+	m_body->SetLinearVelocity(vel);
+}
+
+b2Vec2 Player::getBodyPosition()
+{
+	return m_body->GetPosition();
 }
 
 void Player::draw(sf::RenderWindow& window) const
@@ -27,7 +53,7 @@ sf::Vector2f Player::getPosition() const
 
 void Player::keyPress(sf::Keyboard::Key key)
   {
-	b2Vec2 vel = m_view->getBodyVelocity();
+	b2Vec2 vel = m_body->GetLinearVelocity();
 
 	switch (key)
 	{
@@ -44,13 +70,8 @@ void Player::keyPress(sf::Keyboard::Key key)
 			break;
 	}
 
-	m_view->setBodyVelocity(vel);
+	m_body->SetLinearVelocity(vel);
 
-}
-
-b2Vec2 Player::getPlayerPosition()
-{
-	return m_view->getBodyPosition();
 }
 
 void Player::handleCollision()

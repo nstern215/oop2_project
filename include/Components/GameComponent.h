@@ -9,7 +9,7 @@ class Controller;
 class GameComponent : public BaseComponent
 {
 public:
-	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), int windowHeight);
+	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize);
 
 	void active(std::map<std::string, std::string>& metadata) override;
 	void draw(sf::RenderWindow& window) override;
@@ -18,13 +18,9 @@ public:
 
 	void updateView() override;
 
-	void buildWorld();
-
 private:
 
 	b2World m_world;
-
-	b2Body* m_ground;
 
 	std::unique_ptr<Tower> m_tower;
 

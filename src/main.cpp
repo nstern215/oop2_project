@@ -2,8 +2,7 @@
 
 #include "Controller.h"
 
-int main()
-{
+int main(){
 	Controller controller;
 	controller.run();
 	
