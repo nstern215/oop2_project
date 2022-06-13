@@ -12,7 +12,7 @@ FloorView::FloorView(int width, int floorLevel):
 
 void FloorView::buildFloor()
 {
-	m_rect.setSize({ static_cast<float>(m_width * FLOOR_UNIT_WIDTH), FLOOR_HEIGHT });
+	m_rect.setSize({ static_cast<float>(m_width), FLOOR_HEIGHT });
 	m_rect.setOrigin(sf::Vector2f(m_rect.getSize().x/20.0f, m_rect.getSize().y / 20.0f));
 	m_rect.setFillColor(sf::Color(212, 165, 38));
 	m_rect.setOutlineColor(sf::Color::White);
