@@ -1,4 +1,5 @@
 #pragma once
+#include "Animation.h"
 #include "BaseView.h"
 
 class PlayerView : public BaseView
@@ -13,8 +14,14 @@ public:
 	sf::FloatRect getGlobalBound() const override;
 	void move(sf::Vector2f move) override;
 
-private:	
-	sf::Sprite m_sprite;
+	void update(sf::Time delta);
+	void direction(Direction direction);
 
+private:
+	sf::Sprite m_sprite;
+	Direction m_dir = Direction::Stay;
+	sf::Vector2f m_directionScaleVector = { 1,1 };
+	Animation m_animation;
+	
 	sf::RectangleShape m_shape;
 }; 

@@ -2,6 +2,42 @@
 
 Resources* Resources::m_instance = nullptr;
 
+namespace
+{
+	AnimationData playerData()
+	{
+		const auto size = sf::Vector2i(30, 57);
+		const auto initSpace = sf::Vector2i(5, 8);
+		const auto middleSpace = sf::Vector2i(7, 0);
+
+		auto player = AnimationData{};
+		auto currentStart = initSpace;
+
+		auto nextStart = [&]()
+		{
+			currentStart += middleSpace;
+			currentStart.x += size.x;
+			return currentStart;
+		};
+
+		player.m_data[Direction::Stay].emplace_back(currentStart, size);
+		player.m_data[Direction::Stay].emplace_back(nextStart(), size);
+		player.m_data[Direction::Stay].emplace_back(nextStart(), size);
+
+		player.m_data[Direction::Right].emplace_back(nextStart(), size);
+		player.m_data[Direction::Right].emplace_back(nextStart(), size);
+		player.m_data[Direction::Right].emplace_back(nextStart(), size);
+		player.m_data[Direction::Right].emplace_back(nextStart(), size);
+
+		player.m_data[Direction::Up].emplace_back(nextStart(), size);
+
+		player.m_data[Direction::Down] = player.m_data[Direction::Up];
+		player.m_data[Direction::Left] = player.m_data[Direction::Right];
+
+		return player;
+	}
+}
+
 Resources* Resources::instance()
 {
 	if (m_instance == nullptr)
@@ -11,9 +47,12 @@ Resources* Resources::instance()
 }
 
 
-Resources::Resources()
+Resources::Resources():
+	m_data(Max)
 {
 	loadResources();
+
+	buildAnimation();
 }
 
 Resources::~Resources()
@@ -26,7 +65,6 @@ void Resources::loadResources()
 	loadAudio();
 	loadFonts();
 	loadTextures();
-	loadSpritesheet();
 }
 
 sf::Font* Resources::getFont(std::string fontName)
@@ -69,9 +107,12 @@ void Resources::loadTextures()
 {
 	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
 	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
+
+	m_textures.insert({ "game_sprite", std::make_unique<sf::Texture>() });
+	m_textures["game_sprite"]->loadFromFile("icytower_sprite.png");
 }
 
-void Resources::loadSpritesheet()
+void Resources::buildAnimation()
 {
-	
+	m_data[Player] = playerData();
 }
