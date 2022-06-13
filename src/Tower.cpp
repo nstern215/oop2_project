@@ -16,7 +16,7 @@ Tower::Tower(sf::Vector2u windowSize, b2World* world) :
 
 void Tower::initiateNewGame()
 {
-	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x ,  m_windowSize.x/2, m_windowSize.y, m_floorsBufferCount));
+	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x ,  m_windowSize.x/2, (m_windowSize.y*9)/10, m_floorsBufferCount));
 
 	/*for(float space = m_windowSize.y ; space > 0 ; space += 60)
 	{
@@ -39,7 +39,12 @@ void Tower::increseSpeed()
 void Tower::draw(sf::RenderWindow& window)
 {
 	for (const auto& floor : m_towerFloors)
+	{
+		b2Vec2 newPosition = floor->getBodyPosition();
+		newPosition *= PIXEL_PER_METERS;
+		floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));
 		floor->draw(window);
+	}
 }
 
 void Tower::play()
@@ -85,11 +90,8 @@ void Tower::move(float deltaTime)
 	const sf::Vector2f direction(0, deltaTime * m_towerSpeed);
 	
 	for (auto& m_floor : m_towerFloors)
-	{
-		b2Vec2 newPosition = m_floor->getBodyPosition();
-		newPosition *= PIXEL_PER_METERS;
-		m_floor->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));
-	}
+		m_floor->updatePosition(direction);
+	
 }
 
 sf::Vector2f Tower::getFirstFloorPosition()

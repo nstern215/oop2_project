@@ -42,7 +42,7 @@ void Floor::handleCollision()
 
 void Floor::updatePosition(sf::Vector2f update) const
 {
-	m_view->move(update);
+	m_view->setPosition(update);
 }
 
 sf::Vector2f Floor::getPosition() const
