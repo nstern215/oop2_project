@@ -54,6 +54,11 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 	case sf::Event::KeyReleased:
 		if (event.key.code == sf::Keyboard::Key::Add)
 			m_tower->increseSpeed();
+		else if (event.key.code == sf::Keyboard::Key::Escape)
+		{
+			const Metadata metadata = {{"status", "pause"}};
+			(m_controller->*m_changeModeFunc)(MENU, metadata);
+		}
 	case sf::Event::KeyPressed:
 		m_player->keyPress(event.key.code);
 
