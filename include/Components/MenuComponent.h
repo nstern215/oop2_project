@@ -38,5 +38,5 @@ private:
 
 	const std::string m_MUSIC_NAME = "openning_track";
 
-	sf::Music* m_music;
+	sf::Sound m_sound;
 };

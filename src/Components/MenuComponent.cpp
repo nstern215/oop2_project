@@ -12,11 +12,9 @@ MenuComponent::MenuComponent(void (Controller::* changeModeFunc)(Mode, Metadata)
 	m_changeModeFunc = changeModeFunc;
 	m_controller = controller;
 
-	m_music = new sf::Music();
-	
-	m_music->openFromFile("openning_track.wav");
-	m_music->setVolume(100);
-	m_music->setLoop(true);
+	m_sound.setBuffer(*Resources::instance()->getMusic("opening_track"));
+	m_sound.setLoop(true);
+	m_sound.setVolume(100);
 	
 	buildBackground();
 	buildMenu();
@@ -47,7 +45,8 @@ void MenuComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 				break;
 		case sf::Keyboard::Key::Space:
 		case sf::Keyboard::Key::Enter:
-			
+
+			m_sound.stop();
 			m_selectedItem->second->execute();
 			break;
 		}
@@ -69,6 +68,7 @@ void MenuComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 			for (const auto& item : m_items)
 				if (item.first->getGlobalBound().contains(window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y })))
 				{
+					m_sound.stop();
 					item.second->execute();
 					break;
 				}
@@ -83,7 +83,7 @@ void MenuComponent::updateView()
 
 void MenuComponent::active(Metadata& metadata)
 {
-	m_music->play();
+	m_sound.play();
 }
 
 void MenuComponent::buildMenu()
