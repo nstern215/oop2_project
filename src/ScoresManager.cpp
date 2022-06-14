@@ -43,6 +43,16 @@ int ScoresManager::extractScoreFromLine(std::string line) const
 	return prev ? std::stoi(prev) : 0;
 }
 
+int ScoresManager::getHigherstScore() const
+{
+	const auto maxScoreLine = std::ranges::min_element(m_scores, [this](const auto& a, const auto& b)
+		{
+			return extractScoreFromLine(a) < extractScoreFromLine(b);
+		});
+
+	return extractScoreFromLine(*maxScoreLine);
+}
+
 bool ScoresManager::isNewScore(int score) const
 {
 	const auto minScoreLine = std::ranges::min_element(m_scores, [this](const auto& a, const auto& b)
