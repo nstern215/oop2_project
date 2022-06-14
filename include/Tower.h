@@ -25,7 +25,7 @@ public:
 
 	void move(float deltaTime);
 
-	void increseSpeed();
+	void increaseSpeed();
 
 	sf::Vector2f getFirstFloorPosition();
 

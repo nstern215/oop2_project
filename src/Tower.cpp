@@ -27,7 +27,7 @@ void Tower::initiateNewGame()
 }
 
 
-void Tower::increseSpeed()
+void Tower::increaseSpeed()
 {
 	m_towerSpeed += 50;
 }

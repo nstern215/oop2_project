@@ -11,7 +11,7 @@
 #define WINDOW_HEIGHT 800
 
 Controller::Controller():
-	m_activeMode(MENU),
+	m_activeMode(GAME),
 	m_window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), GAME_TITLE, sf::Style::Close)
 {
 	buildComponents();

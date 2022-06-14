@@ -104,7 +104,7 @@ void Resources::loadAudio()
 	{
 		m_audio.insert({ item, std::make_unique<sf::SoundBuffer>() });
 
-		std::string trackName(item);
+		auto trackName(item);
 		trackName += ".wav";
 		m_audio[item]->loadFromFile(trackName);
 	}	
@@ -118,11 +118,22 @@ void Resources::loadFonts()
 
 void Resources::loadTextures()
 {
+	std::vector<std::string> textures = { 
+		"game_sprite",
+		"clock",
+		"clock_hand"};
+
+	for (const auto& item : textures)
+	{
+		m_textures.insert({ item, std::make_unique<sf::Texture>() });
+
+		auto name(item);
+		name += ".png";
+		m_textures[item]->loadFromFile(name);
+	}
+
 	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
 	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
-
-	m_textures.insert({ "game_sprite", std::make_unique<sf::Texture>() });
-	m_textures["game_sprite"]->loadFromFile("icytower_sprite.png");
 }
 
 void Resources::buildAnimation()

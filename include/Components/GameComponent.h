@@ -3,6 +3,7 @@
 #include "Tower.h"
 #include "Player.h"
 #include "box2d/box2d.h"
+#include "Views/ClockView.h"
 
 class Controller;
 
@@ -11,6 +12,8 @@ class GameComponent : public BaseComponent
 public:
 	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* conrtoller);
 
+	static void increaseLevel();
+	
 	void active(Metadata& metadata) override;
 	void draw(sf::RenderWindow& window) override;
 
@@ -20,9 +23,13 @@ public:
 
 private:
 
+	static GameComponent* m_instance;
+	
 	b2World m_world;
 
 	std::unique_ptr<Tower> m_tower;
 
 	std::unique_ptr<Player> m_player;
+
+	ClockView m_clockView;
 };
