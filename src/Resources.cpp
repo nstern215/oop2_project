@@ -83,7 +83,7 @@ sf::Texture* Resources::getTexture(std::string textureName)
 	return m_textures[textureName].get();
 }
 
-sf::Music* Resources::getMusic(std::string musicName)
+sf::SoundBuffer* Resources::getMusic(std::string musicName)
 {
 	if (!m_audio.count(musicName))
 		return nullptr;
@@ -93,8 +93,21 @@ sf::Music* Resources::getMusic(std::string musicName)
 
 void Resources::loadAudio()
 {
-	/*m_audio.insert({ "openning_track", std::make_unique<sf::Music>() });
-	m_audio["openning_track"]->openFromFile("openning_track.mp3");*/
+	std::vector<std::string> audio = { "opening_track",
+		"100_floors",
+		"alarm",
+		"game_over",
+		"new_high_score",
+		"new_record_claps" };
+
+	for (const auto& item : audio)
+	{
+		m_audio.insert({ item, std::make_unique<sf::SoundBuffer>() });
+
+		std::string trackName(item);
+		trackName += ".wav";
+		m_audio[item]->loadFromFile(trackName);
+	}	
 }
 
 void Resources::loadFonts()

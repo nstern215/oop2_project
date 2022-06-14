@@ -21,7 +21,7 @@ public:
 	
 	sf::Font* getFont(std::string fontName);
 	sf::Texture* getTexture(std::string textureName);
-	sf::Music* getMusic(std::string musicName);
+	sf::SoundBuffer* getMusic(std::string musicName);
 
 private:
 	Resources(const Resources&) = delete;
@@ -41,8 +41,7 @@ private:
 
 	std::map<std::string, std::unique_ptr<sf::Font>> m_fonts;
 	std::map<std::string, std::unique_ptr<sf::Texture>> m_textures;
-	std::map<std::string, std::unique_ptr<sf::Music>> m_audio;
-	std::map<std::string, sf::Texture> m_spriteTextures;
+	std::map<std::string, std::unique_ptr<sf::SoundBuffer>> m_audio;
 
 	std::vector<AnimationData> m_data;
 };
