@@ -4,21 +4,20 @@ const float PIXEL_PER_METERS = 32.0f;
 const float HIGHT = (20.0f) ;
 
 Floor::Floor(b2World* world, float width, float x, float y, float floorLevel) :
-	m_view(std::make_unique<FloorView>(width, floorLevel))
+	m_view(std::make_unique<FloorView>(width, floorLevel)),
+	m_gameWorld(world)
 {
-	buildFloorBody(world, width, x, y, floorLevel);
+	buildFloorBody(width, x, y, floorLevel);
 }
 
-void Floor::buildFloorBody(b2World* world, float width, float x, float y, float floorLevel)
+void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
 {
 	m_bodyDef.type = b2_staticBody;
 	m_bodyDef.position.Set((x + width / 2)/ PIXEL_PER_METERS, y / PIXEL_PER_METERS);
-	m_body = world->CreateBody(&m_bodyDef);
+	m_body = m_gameWorld->CreateBody(&m_bodyDef);
 
 	m_staticBox.SetAsBox((width / 2.0f) / PIXEL_PER_METERS, (HIGHT / 2.0f) / PIXEL_PER_METERS);
 	m_body->CreateFixture(&m_staticBox, 1.0f);
-
-	
 }
 
 void Floor::repositionFloor(b2Vec2 newPosition)

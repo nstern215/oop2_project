@@ -18,12 +18,14 @@ public:
 
 private:
 
-	void buildFloorBody(b2World* world, float width, float x, float y, float floorLevel);
+	void buildFloorBody(float width, float x, float y, float floorLevel);
 
 	b2BodyDef m_bodyDef;
 	b2PolygonShape m_staticBox;
 	b2FixtureDef m_fixtureDef;
 	b2Body* m_body;
+	b2World* m_gameWorld;
+
 
 	std::unique_ptr<FloorView> m_view;
 };

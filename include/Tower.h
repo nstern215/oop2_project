@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Floor.h"
+#include "Wall.h"
 #include "FloorGenerator.h"
 #include "box2d/box2d.h"
 
@@ -27,7 +28,7 @@ public:
 
 	void increseSpeed();
 
-	sf::Vector2f getFirstFloorPosition();
+	b2Vec2 getFirstFloorPosition();
 
 
 private:
@@ -37,7 +38,9 @@ private:
 	void buildFloor();
 
 	std::list<std::unique_ptr<Floor>> m_towerFloors;
-	
+	std::vector<std::unique_ptr<Wall>> m_walls;
+
+
 	TowerState m_state;
 
 	unsigned int m_floorsBufferCount;

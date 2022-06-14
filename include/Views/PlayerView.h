@@ -5,9 +5,9 @@
 class PlayerView : public BaseView
 {
 public:
-	PlayerView();
+	PlayerView(sf::Vector2f size);
 
-	void buildPlayer();
+	void buildPlayer(sf::Vector2f size);
 	void draw(sf::RenderWindow& window) override;
 	sf::Vector2f getPosition() const override;
 	void setPosition(sf::Vector2f position) override;

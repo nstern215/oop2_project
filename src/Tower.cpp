@@ -24,17 +24,26 @@ void Tower::initiateNewGame()
 	{
 		buildFloor();
 	}
-}
 
+	for (int numOfWalls = 0; numOfWalls < 2; numOfWalls++)
+		m_walls.push_back(std::make_unique<Wall>(m_gameWorld, m_windowSize, numOfWalls));
+}
 
 void Tower::increseSpeed()
 {
 	m_towerSpeed += 50;
 }
 
-
 void Tower::draw(sf::RenderWindow& window)
 {
+	for(const auto& wall:m_walls)
+	{
+		b2Vec2 newPosition = wall->getBodyPosition();
+		newPosition *= PIXEL_PER_METERS;
+		wall->updatePosition(sf::Vector2f(newPosition.x, newPosition.y));
+		wall->draw(window);
+	}
+
 	for (const auto& floor : m_towerFloors)
 	{
 		b2Vec2 newPosition = floor->getBodyPosition();
@@ -87,11 +96,15 @@ void Tower::move(float deltaTime)
 	const sf::Vector2f direction(0, deltaTime * m_towerSpeed);
 
 	for (auto& m_floor : m_towerFloors)
-		m_floor->updatePosition(direction);
+	{
+
+		/*m_floor->updatePosition(direction);*/
+	}
 
 }
 
-sf::Vector2f Tower::getFirstFloorPosition()
+b2Vec2 Tower::getFirstFloorPosition()
 {
-	return m_towerFloors.front()->getPosition();
+
+	return m_towerFloors.front()->getBodyPosition();
 }

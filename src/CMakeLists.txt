@@ -9,7 +9,9 @@
 												"ScoresManager.cpp"
 												"Command.cpp"
 												"MenuCommands.cpp"
+												"Wall.cpp"
 												"Direction.cpp"
+												"ContactDecler.cpp"
 												"Animation.cpp"
 												"AnimationData.cpp"
 
@@ -23,6 +25,7 @@
 
 												#views
 												"Views/BaseView.cpp"
+												"Views/WallView.cpp"
 												"Views/TextView.cpp"
 												"Views/PlayerView.cpp"
 												"Views/FloorView.cpp"

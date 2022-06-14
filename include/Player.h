@@ -5,11 +5,11 @@
 class Player
 {
 public:
-	Player(b2World* gameWorld, sf::Vector2f startingPosition, b2Vec2 size);
+	Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size);
 	void draw(sf::RenderWindow& window) const;
 	void handleCollision();
 	void updatePosition(sf::Vector2f update) const;
-	void keyPress(sf::Keyboard::Key key);
+	b2Vec2 keyPress();
 	sf::Vector2f getPosition() const;
 
 	void update(sf::Time delta) const;
@@ -21,7 +21,9 @@ public:
 
 private:
 
-	void buildBody(b2World* world, sf::Vector2f startingPosition, b2Vec2 size);
+	void buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size);
+
+	bool m_inContact
 
 	b2BodyDef m_bodyDef;
 	b2PolygonShape m_dynamicBox;

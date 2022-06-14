@@ -1,13 +1,15 @@
 #include "Player.h"
 
-Player::Player(b2World* gameWorld, sf::Vector2f startingPosition, b2Vec2 size) :
-	m_view(std::make_unique<PlayerView>()),
+const float PIXEL_PER_METERS = 32.0f;
+
+Player::Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size) :
+	m_view(std::make_unique<PlayerView>(sf::Vector2f(size.x*PIXEL_PER_METERS, size.y*PIXEL_PER_METERS))),
 	m_playerSpeed(500)
 {
 	buildBody(gameWorld, startingPosition, size);
 }
 
-void Player::buildBody(b2World* world, sf::Vector2f startingPosition, b2Vec2 size)
+void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 {
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
@@ -69,30 +71,29 @@ sf::Vector2f Player::getPosition() const
 	return m_view->getPosition();
 }
 
-void Player::keyPress(sf::Keyboard::Key key)
-  {
+b2Vec2 Player::keyPress()
+{
 	b2Vec2 vel = m_body->GetLinearVelocity();
-
-	switch (key)
+	
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-	case sf::Keyboard::Space:
 		m_view->direction(Direction::Up);
- 		vel.y = -5;
-		break;
-	case sf::Keyboard::Left:
+		vel.y = -8;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
 		m_view->direction(Direction::Left);
 		vel.x = -2;
-		break;
-	case sf::Keyboard::Right:
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
 		m_view->direction(Direction::Right);
 		vel.x = 2;
-		break;
-	default:
-			break;
 	}
 
 	m_body->SetLinearVelocity(vel);
 
+	return m_body->GetLinearVelocity();
 }
 
 void Player::handleCollision()
