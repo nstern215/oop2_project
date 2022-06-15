@@ -11,7 +11,7 @@ void WallView::buildWall(sf::Vector2u windowSize, int wallNum)
 {
 	m_rect.setSize(sf::Vector2f(WALL_UNIT_WIDTH, windowSize.y));
 	m_rect.setOrigin(sf::Vector2f(m_rect.getSize().x / 2.0f, m_rect.getSize().y / 2.0f));
-	m_rect.setFillColor(sf::Color(212, 165, 38));
+	m_rect.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
 }
 
 

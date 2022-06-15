@@ -20,7 +20,7 @@ private:
 	typedef std::pair<std::unique_ptr<MenuItemView>, std::unique_ptr<Command>> option;
 	
 	void buildMenu();
-	std::unique_ptr<MenuItemView> createMenuItem(const std::string& title, bool isActive = true);
+	std::unique_ptr<MenuItemView> createMenuItem(const std::string& title, bool isActive = true) const;
 	void setItemsPosition();
 	void selectNextItem();
 	void selectPreviousItem();

@@ -9,6 +9,8 @@ configure_file ("game_sprite.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("clock.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("clock_hand.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("brick_tower_background.jpg" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("back_background.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("front_background.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 #sound
 configure_file ("opening_track.wav" ${CMAKE_BINARY_DIR} COPYONLY)

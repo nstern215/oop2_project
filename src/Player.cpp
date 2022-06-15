@@ -102,7 +102,7 @@ b2Vec2 Player::keyPress()
 		if (m_contacting)
 		{
 			m_view->direction(Direction::Up);
-			vel.y = -10;          
+			vel.y = -9;          
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))

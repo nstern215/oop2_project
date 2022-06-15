@@ -158,7 +158,7 @@ void MenuComponent::setItemsPosition()
 	}
 }
 
-std::unique_ptr<MenuItemView> MenuComponent::createMenuItem(const std::string& title, bool isActive)
+std::unique_ptr<MenuItemView> MenuComponent::createMenuItem(const std::string& title, bool isActive) const
 {
 	return std::make_unique<MenuItemView>(title, m_MENU_ITEM_FONT, m_MENU_ITEM_FONT_SIZE, sf::Color::Green, isActive);
 }

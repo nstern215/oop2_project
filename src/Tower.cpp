@@ -73,7 +73,7 @@ void Tower::buildFloor()
 	const auto [fst, snd] = m_floorGen();
 	auto width = snd * FLOOR_UNIT_WIDTH;
 	auto x = fst.x * FLOOR_UNIT_WIDTH;
-	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 100.0f;
+	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 120.0f;
 
 	auto f = new Floor(m_gameWorld, width, x, y, ++m_floorsBufferCount);
 
@@ -88,7 +88,7 @@ void Tower::buildFloor()
 void Tower::move(float deltaTime)
 {
 
-	if (m_towerFloors.back()->getPosition().y >= 60)
+	if (m_towerFloors.back()->getPosition().y >= 90)
 	{
 		buildFloor();
 	}
