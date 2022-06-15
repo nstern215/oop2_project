@@ -1,4 +1,5 @@
 #include "Views/WallView.h"
+#include "Resources.h"
 
 #define WALL_UNIT_WIDTH 180
 
