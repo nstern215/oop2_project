@@ -8,10 +8,10 @@ Floor::Floor(b2World* world, float width, float x, float y, int floorLevel) :
 	m_gameWorld(world),
 	m_level(floorLevel)
 {
-	buildFloorBody(width, x, y, floorLevel);
+	buildFloorBody(width, x, y);
 }
 
-void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
+void Floor::buildFloorBody(float width, float x, float y)
 {
 	m_collisionFilter.categoryBits = 1;
 	m_collisionFilter.maskBits = 3;
@@ -23,7 +23,7 @@ void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
 	m_staticBox.SetAsBox((width / 2.0f) / PIXEL_PER_METERS, (HIGHT / 2.0f) / PIXEL_PER_METERS);
 	m_fixtureDef.shape = &m_staticBox;
 
-	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);;
+	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	
 	m_fixtureDef.filter.categoryBits = 1;
 	m_fixtureDef.filter.maskBits = 3;
@@ -51,7 +51,9 @@ void Floor::updatePosition(sf::Vector2f update) const
 	m_view->setPosition(update);
 
 	const auto newPosition = m_view->getPosition();
-	b2Vec2 newBodyPosition(newPosition.x / PIXEL_PER_METERS, newPosition.y / PIXEL_PER_METERS);
+	const b2Vec2 newBodyPosition(newPosition.x / PIXEL_PER_METERS, newPosition.y / PIXEL_PER_METERS);
+
+	m_body->SetTransform(newBodyPosition, 0);
 }
 
 sf::Vector2f Floor::getPosition() const

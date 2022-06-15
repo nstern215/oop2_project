@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Audio.hpp>
+
 #include "BaseComponent.h"
 #include "Tower.h"
 #include "Player.h"
@@ -32,6 +34,9 @@ private:
 	const int m_MENU_ITEM_FONT_SIZE = 60;
 	const sf::Vector2u m_windowSize;;
 
+	bool isLoose() const;
+	void gameOver();
+	
 	static GameComponent* m_instance;
 	
 	b2World m_world;
@@ -48,10 +53,7 @@ private:
 
 	const std::string m_baseScoreText = "Score:   ";
 	TextView m_scoreView;
-};
 
-struct Data
-{
-	std::string type;
-	void* elem;
+
+	sf::Sound m_sound;
 };

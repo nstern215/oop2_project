@@ -1,6 +1,8 @@
 #include "Components/GameComponent.h"
 #include "Resources.h"
 
+#include "Resources.h"
+
 #define TIME_STEP 1.0f/30.0f
 #define VELOCITY_INTERATIONS 6
 #define POSITION_INTERATIONS 6
@@ -31,6 +33,8 @@ GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<
 
 	m_scoreView.setTextColor(sf::Color::White);
 	m_scoreView.setBackgroundColor(sf::Color::Green);
+
+	m_sound.setVolume(100);
 }
 
 void GameComponent::buildBackground()
@@ -42,7 +46,12 @@ void GameComponent::buildBackground()
 void GameComponent::active(Metadata& metadata)
 {
 	m_clock.restart();
-	m_tower->play();
+
+	/*if (metadata.count("status") != 0)
+		if (metadata["status"] == "resume")
+			*/
+	
+	//m_tower->play();
 }
 
 void GameComponent::updateView()
@@ -54,8 +63,16 @@ void GameComponent::updateView()
 
 	m_player->update(deltaTime);
 	m_clockView.update(deltaTime);
+
+	if (isLoose())
+		gameOver();
 	
 	m_tower->move(deltaTime.asSeconds());
+
+	if (m_player->getPosition().y <= m_windowSize.y / 2)
+  		m_tower->play();
+
+	m_world.SetContactListener(&m_contactDecler);
 }
 
 
@@ -97,11 +114,15 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 			m_tower->increaseSpeed();
 		else if (event.key.code == sf::Keyboard::Key::Escape)
 		{
+			m_tower->pause();
+
 			const Metadata metadata = { {"status", "pause"} };
 			(m_controller->*m_changeModeFunc)(MENU, metadata);
 		}
 		else if (event.key.code == sf::Keyboard::Key::A)
 			m_tower->disableCollision();
+		else if (event.key.code == sf::Keyboard::Key::S)
+			m_tower->buildFloor();
 	case sf::Event::KeyPressed:
 		//m_player->keyPress(event.key.code);
 
@@ -119,4 +140,18 @@ void GameComponent::increaseLevel()
 void GameComponent::setLatestFloor(int floor)
 {
 	m_instance->m_score = floor;
+}
+
+bool GameComponent::isLoose() const
+{
+	return m_player->getPosition().y >= m_windowSize.y;
+}
+
+void GameComponent::gameOver()
+{
+	m_sound.setBuffer(*Resources::instance()->getMusic("game_over"));
+	m_sound.play();
+
+	const Metadata metadata = { {"score", std::to_string(m_score)} };
+	(m_controller->*m_changeModeFunc)(SCORE_BOARD, metadata);
 }
