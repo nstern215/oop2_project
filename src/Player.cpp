@@ -22,6 +22,7 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	
 	m_fixtureDef.shape = &m_dynamicBox;
+	m_fixtureDef.filter.groupIndex = -1;
 	m_fixtureDef.density = 1.0f;
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
