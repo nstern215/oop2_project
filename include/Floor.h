@@ -32,7 +32,7 @@ private:
 	b2Body* m_body;
 	b2World* m_gameWorld;
 
-	std::unique_ptr<ContactDecleare> m_contactDecleare;
+	//std::unique_ptr<ContactDecleare> m_contactDecleare;
 
 	std::unique_ptr<FloorView> m_view;
 };

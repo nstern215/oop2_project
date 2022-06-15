@@ -19,11 +19,10 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_dynamicBox.SetAsBox(size.x, size.y);
 
 	m_fixtureDef.shape = &m_dynamicBox;
+	m_fixtureDef.filter.groupIndex = -1;
 	m_fixtureDef.density = 1.0f;
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
-	//m_body->SetUserData(m_contactDecleare.get());
-	m_body->GetUserData().pointer = reinterpret_cast<uintptr_t>(this);
 }
 
 void Player::update(sf::Time delta) const
