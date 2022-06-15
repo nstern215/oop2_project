@@ -5,6 +5,7 @@
 #include "ContactDecleare.h"
 #include "box2d/box2d.h"
 #include "Views/ClockView.h"
+#include "Views/TextView.h"
 
 class Controller;
 
@@ -38,6 +39,10 @@ private:
 	ClockView m_clockView;
 
 	int m_score = 0;
+
+	const std::string m_baseScoreText = "Score:   ";
+	TextView m_scoreView;
+
 };
 
 struct Data

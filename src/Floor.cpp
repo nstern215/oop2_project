@@ -3,9 +3,10 @@
 const float PIXEL_PER_METERS = 32.0f;
 const float HIGHT = (20.0f) ;
 
-Floor::Floor(b2World* world, float width, float x, float y, float floorLevel) :
+Floor::Floor(b2World* world, float width, float x, float y, int floorLevel) :
 	m_view(std::make_unique<FloorView>(width, floorLevel)),
-	m_gameWorld(world)
+	m_gameWorld(world),
+	m_level(floorLevel)
 {
 	buildFloorBody(width, x, y, floorLevel);
 }
@@ -21,12 +22,12 @@ void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
 	
 	m_staticBox.SetAsBox((width / 2.0f) / PIXEL_PER_METERS, (HIGHT / 2.0f) / PIXEL_PER_METERS);
 	m_fixtureDef.shape = &m_staticBox;
+
+	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);;
 	
 	m_fixtureDef.filter.categoryBits = 1;
 	m_fixtureDef.filter.maskBits = 3;
 	m_body->CreateFixture(&m_fixtureDef);
-
-	//m_body->GetFixtureList()->SetFilterData(m_collisionFilter);
 }
 
 void Floor::repositionFloor(b2Vec2 newPosition)
@@ -81,3 +82,7 @@ void Floor::disableCollision()
 	m_body->GetFixtureList()->SetFilterData(m_collisionFilter);
 }
 
+int Floor::getLevel() const
+{
+	return m_level;
+}

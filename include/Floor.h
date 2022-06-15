@@ -6,7 +6,7 @@
 class Floor
 {
 public:
-	Floor(b2World* world, float width, float x, float y, float floorLevel);
+	Floor(b2World* world, float width, float x, float y, int floorLevel);
 
 	void draw(sf::RenderWindow& window) const;;
 	void repositionFloor(b2Vec2 newPosition);
@@ -21,6 +21,8 @@ public:
 
 	void disableCollision();
 	void enableCollision();
+
+	int getLevel() const;
 
 private:
 
@@ -38,4 +40,6 @@ private:
 	//std::unique_ptr<ContactDecleare> m_contactDecleare;
 
 	std::unique_ptr<FloorView> m_view;
+
+	const int m_level;
 };
