@@ -15,7 +15,8 @@ GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<
 	m_tower(std::make_unique<Tower>(windowSize, &m_world)),
 	m_player(std::make_unique<Player>(&m_world, m_tower->getFirstFloorPosition(),
 				(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)))),
-	m_clockView(increaseLevel, LEVEL_DURATION_SEC, 100)
+	m_clockView(increaseLevel, LEVEL_DURATION_SEC, 100),
+	m_contactDecler(setLatestFloor)
 {
 	m_world.SetContactListener(&m_contactDecler);
 	m_changeModeFunc = changeModeFunc;
@@ -91,4 +92,9 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 void GameComponent::increaseLevel()
 {
 	m_instance->m_tower->increaseSpeed();
+}
+
+void GameComponent::setLatestFloor(int floor)
+{
+	m_instance->m_score = floor;
 }

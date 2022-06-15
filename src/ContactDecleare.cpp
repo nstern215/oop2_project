@@ -5,10 +5,15 @@
 #include "Player.h"
 #include "Floor.h"
 
+ContactDecleare::ContactDecleare(void(*updateFloor)(int)): m_updateFloor(updateFloor){}
+
 void ContactDecleare::BeginContact(b2Contact* contact)
 {
 	//A - floor
 	//B - player
+
+	/*uintptr_t floor = contact->GetFixtureA()->GetUserData().pointer;
+	*/
 	
 	uintptr_t fixtureBBodyData = contact->GetFixtureB()->GetUserData().pointer;
 
