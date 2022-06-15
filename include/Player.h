@@ -19,9 +19,8 @@ public:
 	b2Vec2 getBodyVelocity() const;
 	b2Vec2 getBodyPosition() const;
 
-	void startContact() { m_contacting = true; }
-	void endContact() { m_contacting = false; }
-
+	void startContact();
+	void endContact();
 
 private:
 
@@ -39,4 +38,6 @@ private:
 	float m_playerSpeed;
 
 	std::unique_ptr<ContactDecleare> m_contactDecleare;
+
+	int contactCounter = 0;
 };

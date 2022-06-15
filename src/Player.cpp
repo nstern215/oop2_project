@@ -3,9 +3,9 @@
 const float PIXEL_PER_METERS = 32.0f;
 
 Player::Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size) :
-	m_view(std::make_unique<PlayerView>(sf::Vector2f(size.x*PIXEL_PER_METERS, size.y*PIXEL_PER_METERS))),
+	m_view(std::make_unique<PlayerView>(sf::Vector2f(size.x* PIXEL_PER_METERS, size.y* PIXEL_PER_METERS))),
 	m_playerSpeed(500),
-	m_contacting(false)
+	m_contacting(true)
 {
 	buildBody(gameWorld, startingPosition, size);
 }
@@ -23,7 +23,7 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
 	//m_body->SetUserData(m_contactDecleare.get());
-	m_body->GetUserData().pointer = reinterpret_cast<uintptr_t>(m_contactDecleare.get());
+	m_body->GetUserData().pointer = reinterpret_cast<uintptr_t>(this);
 }
 
 void Player::update(sf::Time delta) const
@@ -60,7 +60,7 @@ void Player::draw(sf::RenderWindow& window) const
 		m_view->direction(Direction::Left);
 	else
 		m_view->direction(Direction::Right);
-	
+
 	m_view->draw(window);
 }
 
@@ -77,11 +77,14 @@ sf::Vector2f Player::getPosition() const
 b2Vec2 Player::keyPress()
 {
 	b2Vec2 vel = m_body->GetLinearVelocity();
-	
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
-		m_view->direction(Direction::Up);
-		vel.y = -8;
+		if (m_contacting)
+		{
+			m_view->direction(Direction::Up);
+			vel.y = -8;
+		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
@@ -102,4 +105,16 @@ b2Vec2 Player::keyPress()
 void Player::handleCollision()
 {
 
+}
+
+void Player::startContact()
+{
+	contactCounter++;
+	m_contacting = true;
+}
+
+void Player::endContact()
+{
+	m_contacting = false;
+	contactCounter++;
 }
