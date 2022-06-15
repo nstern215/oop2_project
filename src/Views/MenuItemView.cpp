@@ -1,7 +1,8 @@
 #include "Views/MenuItemView.h"
 
-MenuItemView::MenuItemView(std::string title, std::string font, unsigned int fontSize, sf::Color selectedColor, bool isSelected) :
+MenuItemView::MenuItemView(std::string title, std::string font, unsigned int fontSize, sf::Color selectedColor, bool isActive, bool isSelected) :
 	m_isSelected(isSelected),
+	m_isActive(isActive),
 	m_outlineColor(selectedColor),
 	TextView(std::move(title), std::move(font), fontSize)
 {
@@ -26,4 +27,14 @@ void MenuItemView::selectedItem(bool selected)
 bool MenuItemView::isSelected() const
 {
 	return m_isSelected;
+}
+
+bool MenuItemView::isItemActive() const
+{
+	return m_isActive;
+}
+
+void MenuItemView::setActive(bool active)
+{
+	m_isActive = active;
 }

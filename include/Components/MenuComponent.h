@@ -20,12 +20,14 @@ private:
 	typedef std::pair<std::unique_ptr<MenuItemView>, std::unique_ptr<Command>> option;
 	
 	void buildMenu();
-	std::unique_ptr<MenuItemView> createMenuItem(const std::string& title);
+	std::unique_ptr<MenuItemView> createMenuItem(const std::string& title, bool isActive = true);
 	void setItemsPosition();
 	void selectNextItem();
 	void selectPreviousItem();
 	void buildBackground();
-
+	bool isItemActive(std::string item);
+	void runItemCommand(std::string item);
+	
 	std::vector<option> m_items;
 	std::vector<option>::iterator m_selectedItem;
 

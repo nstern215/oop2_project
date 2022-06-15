@@ -15,7 +15,7 @@ GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<
 	m_tower(std::make_unique<Tower>(windowSize, &m_world)),
 	m_player(std::make_unique<Player>(&m_world, (m_tower->getFirstFloorPosition()/PIXEL_PER_METERS),
 				(b2Vec2((50.f / 2.0f) / PIXEL_PER_METERS, (50.f / 2.0f) / PIXEL_PER_METERS)))),
-	m_clockView(increaseLevel, LEVEL_DURATION_SEC)
+	m_clockView(increaseLevel, LEVEL_DURATION_SEC,  100)
 {
 	m_changeModeFunc = changeModeFunc;
 	m_controller = controller;
