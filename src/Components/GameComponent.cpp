@@ -55,6 +55,7 @@ void GameComponent::active(Metadata& metadata)
 			m_score = 0;
 
 			m_player->reset(m_tower->getFirstFloorPosition());
+			/*updateView();*/
 		}
 			//todo: start new game!!!!!
 	
