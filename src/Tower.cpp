@@ -40,8 +40,8 @@ void Tower::draw(sf::RenderWindow& window)
 	{
 		floor->draw(window);
 	}       
-++++                      
-	                     for(const auto& wall:m_walls)
+             
+    for(const auto& wall:m_walls)
 	{
 		b2Vec2 newPosition = wall->getBodyPosition();
 		newPosition *= PIXEL_PER_METERS;
