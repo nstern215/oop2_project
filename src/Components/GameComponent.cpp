@@ -48,23 +48,24 @@ void GameComponent::active(Metadata& metadata)
 	m_clock.restart();
 
 	if (metadata.count("status") != 0)
-		if (metadata["status"] == "new")
+		if (metadata["status"] == "new" && m_gameOver)
 		{
-			m_tower->reset();
-			m_tower->initiateNewGame();
 			m_score = 0;
-			m_clockView.resetClock();
+			m_clockView.resetClock();	
+			
+			m_tower = std::make_unique<Tower>(m_windowSize, &m_world);
+			
 
 			m_player = std::make_unique<Player>(&m_world, m_tower->getFirstFloorPosition(),
 				(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)));
 
-			m_requireReset = false;
+			m_gameOver = false;
 		}
 }
 
 void GameComponent::updateView()
 {
-	if (m_requireReset)
+	if (m_gameOver)
 		return;
 
 	const auto deltaTime = m_clock.restart();
@@ -93,6 +94,9 @@ void GameComponent::updateView()
 
 void GameComponent::draw(sf::RenderWindow& window)
 {
+	if (m_gameOver)
+		return;
+	
 	window.draw(m_background);
 
 	if (m_player->getYAxisDirection() > 0)
@@ -138,10 +142,6 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 			m_tower->disableCollision();
 		else if (event.key.code == sf::Keyboard::Key::S)
 			m_tower->buildFloor();
-	case sf::Event::KeyPressed:
-		//m_player->keyPress(event.key.code);
-
-		break;
 	}
 
 	updateView();
@@ -159,8 +159,8 @@ void GameComponent::setLatestFloor(int floor)
 
 bool GameComponent::isLoose()
 {
-	m_requireReset = m_player->getPosition().y >= m_windowSize.y;
-	return m_requireReset;
+	m_gameOver = m_player->getPosition().y >= m_windowSize.y;
+	return m_gameOver;
 }
 
 void GameComponent::gameOver()

@@ -7,7 +7,7 @@
 #include "../include/Floor.h"
 #include "../include/Player.h"
 
-ContactDecleare::ContactDecleare(void(*updateFloor)(int)): m_updateFloor(updateFloor){}
+ContactDecleare::ContactDecleare(void(*updateFloor)(int)) : m_updateFloor(updateFloor) {}
 
 void ContactDecleare::BeginContact(b2Contact* contact)
 {
@@ -21,7 +21,8 @@ void ContactDecleare::BeginContact(b2Contact* contact)
 			Floor* f = reinterpret_cast<Floor*>(fixtureA);
 
 			int level = f->getLevel();
-			m_updateFloor(level);
+			if (level != 0)
+				m_updateFloor(level);
 		}
 		if (reinterpret_cast<Player*>(fixtureA))
 		{
@@ -35,23 +36,25 @@ void ContactDecleare::BeginContact(b2Contact* contact)
 			Floor* f = reinterpret_cast<Floor*>(fixtureB);
 
 			int level = f->getLevel();
-			m_updateFloor(level);
+
+			if (level != 0)
+				m_updateFloor(level);
 		}
 		if (reinterpret_cast<Player*>(fixtureB))
 		{
 			reinterpret_cast<Player*>(fixtureB)->startContact();
 		}
 	}
-	
+
 	//A - floor
 	//B - player
 
 	/*uintptr_t floor = contact->GetFixtureA()->GetUserData().pointer;
-	
+
 	if (floor && reinterpret_cast<Floor*>(floor))
 	{
 		Floor* f = reinterpret_cast<Floor*>(floor);
-		
+
 		int level = f->getLevel();
 		m_updateFloor(level);
 	}
@@ -98,7 +101,7 @@ void ContactDecleare::EndContact(b2Contact* contact)
 	}
 	//A - floor
 	//B - player
-	
+
 	/*uintptr_t fixtureBBodyData = contact->GetFixtureB()->GetUserData().pointer;
 
 	if (fixtureBBodyData && reinterpret_cast<Player*>(fixtureBBodyData))

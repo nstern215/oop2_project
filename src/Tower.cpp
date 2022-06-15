@@ -69,6 +69,7 @@ void Tower::reset()
 
 	m_towerFloors.clear();
 	m_towerSpeed = INITIATE_SPEED;
+	m_floorsBufferCount = 0;
 }
 
 void Tower::buildFloor()
@@ -97,6 +98,11 @@ void Tower::move(float deltaTime)
 		buildFloor();
 	}
 
+	/*auto it = std::remove_if(m_towerFloors.begin(), m_towerFloors.end(), 
+		[&](const Floor* f) { return f->getPosition().y > m_windowSize.y; });*/
+
+	//erase_if(m_towerFloors, [&](const Floor* f) { return f->getPosition().y > m_windowSize.y; });
+	
 	if (m_state != PLAY)
 		return;
 

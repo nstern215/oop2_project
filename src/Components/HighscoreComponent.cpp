@@ -5,7 +5,7 @@
 HighscoreComponent::HighscoreComponent(void (Controller::* changeModeFunc)(Mode, Metadata), Controller* controller, sf::Vector2u windowSize, std::string path) :
 	m_boardView(windowSize),
 	m_scoresFile(path),
-	m_scores(10, m_scoresFile.getLines()),
+	m_scores(5, m_scoresFile.getLines()),
 	m_inputText("", "Tower", 60)
 {
 	m_changeModeFunc = changeModeFunc;

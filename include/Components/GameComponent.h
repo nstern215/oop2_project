@@ -58,5 +58,5 @@ private:
 
 	sf::Sound m_sound;
 
-	bool m_requireReset = false;
+	bool m_gameOver = false;
 };

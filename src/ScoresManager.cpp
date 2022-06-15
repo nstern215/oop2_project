@@ -5,8 +5,16 @@
 ScoresManager::ScoresManager(int numOfScores, std::vector<std::string> scores) :
 	m_scores(std::move(scores)),
 	m_NUM_OF_SCORES(numOfScores)
-{
+{	
 	sortScores();
+
+	if (m_scores.size() > m_NUM_OF_SCORES)
+	{
+		for (int i = 0; i < m_NUM_OF_SCORES - m_scores.size(); ++i)
+		{
+			m_scores.pop_back();
+		}
+	}
 }
 
 std::vector<std::string> ScoresManager::getScoresList() const
@@ -74,4 +82,12 @@ void ScoresManager::addNewScore(std::string name, int score)
 	
 	m_scores.emplace_back(line);
 	sortScores();
+
+	if (m_scores.size() > m_NUM_OF_SCORES)
+	{
+		for (int i = 0; i < m_NUM_OF_SCORES - m_scores.size(); ++i)
+		{
+			m_scores.pop_back();
+		}
+	}
 }

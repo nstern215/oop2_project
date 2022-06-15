@@ -134,8 +134,12 @@ void Player::endContact()
 
 void Player::reset(b2Vec2 startingPosition)
 {
-	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
-	m_view->setPosition({ startingPosition.x * PIXEL_PER_METERS, startingPosition.y * PIXEL_PER_METERS });
+	startContact();
+	//m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+	m_body->SetTransform(startingPosition,0);
+	sf::Vector2f position = { startingPosition.x * PIXEL_PER_METERS, startingPosition.y * PIXEL_PER_METERS };
+
+	m_view->setPosition(position);
 }
 
 sf::Vector2f Player::getOldPosition()
