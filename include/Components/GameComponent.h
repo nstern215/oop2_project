@@ -36,6 +36,8 @@ private:
 	ContactDecleare m_contactDecler;
 
 	ClockView m_clockView;
+
+	int m_score = 0;
 };
 
 struct Data

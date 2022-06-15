@@ -7,7 +7,7 @@
 class ContactDecleare: public b2ContactListener
 {
 public:
-	ContactDecleare();
+	ContactDecleare(void(*updateFloor)(int));
 
 	void BeginContact(b2Contact* contact) override;
 	void EndContact(b2Contact* contact) override;
