@@ -54,6 +54,7 @@ private:
 	const std::string m_baseScoreText = "Score:   ";
 	TextView m_scoreView;
 
+	float m_fixValue = 0;
 
 	sf::Sound m_sound;
 };

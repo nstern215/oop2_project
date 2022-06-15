@@ -56,14 +56,14 @@ void GameComponent::active(Metadata& metadata)
 
 			m_player->reset(m_tower->getFirstFloorPosition());
 		}
-			//todo: start new game!!!!!
-	
-	
+	//todo: start new game!!!!!
+
+
 }
 
 void GameComponent::updateView()
 {
-	
+
 	const auto deltaTime = m_clock.restart();
 
 	b2Vec2 vel = m_player->keyPress();
@@ -73,13 +73,28 @@ void GameComponent::updateView()
 
 	if (isLoose())
 		gameOver();
-	
+
 	m_tower->move(deltaTime.asSeconds());
 
 	if (m_player->getPosition().y <= m_windowSize.y / 2)
-  		m_tower->play();
+		m_tower->play();
 
-	m_world.SetContactListener(&m_contactDecler);
+	//m_world.SetContactListener(&m_contactDecler);
+
+	/*const auto screenThird = m_windowSize.y / 3.f;
+	if (m_player->getPosition().y <= screenThird && m_fixValue == 0)
+	{
+		m_fixValue = screenThird - m_player->getPosition().y;
+		
+		const sf::Vector2f fixPosition(0, m_fixValue);
+		
+		m_tower->move(fixPosition);
+		m_player->updatePosition(m_player->getPosition() + fixPosition);
+	}
+	else
+	{
+		m_fixValue = 0;
+	}*/
 }
 
 
@@ -91,7 +106,7 @@ void GameComponent::draw(sf::RenderWindow& window)
 		m_tower->disableCollision();
 	else
 		m_tower->enableCollision();
-	
+
 	m_world.Step(TIME_STEP, VELOCITY_INTERATIONS, POSITION_INTERATIONS);
 	m_tower->draw(window);
 
@@ -105,10 +120,10 @@ void GameComponent::draw(sf::RenderWindow& window)
 	m_clockView.draw(window);
 
 	m_scoreView.setText(m_baseScoreText + std::to_string(m_score));
-	
+
 	const auto scoreWidth = m_scoreView.getGlobalBound().width;
 	m_scoreView.setPosition({ m_windowSize.x - scoreWidth, 0 });
-	
+
 	m_scoreView.draw(window);
 }
 
@@ -135,7 +150,7 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 
 		break;
 	}
-	
+
 	updateView();
 }
 
