@@ -12,9 +12,13 @@ void ContactDecleare::BeginContact(b2Contact* contact)
 	//A - floor
 	//B - player
 
-	/*uintptr_t floor = contact->GetFixtureA()->GetUserData().pointer;
-	*/
+	uintptr_t floor = contact->GetFixtureA()->GetUserData().pointer;
 	
+	if (floor && reinterpret_cast<Floor*>(floor))
+	{
+		int level = reinterpret_cast<Floor*>(floor)->getLevel();
+		m_updateFloor(level);
+	}
 	uintptr_t fixtureBBodyData = contact->GetFixtureB()->GetUserData().pointer;
 
 	if (fixtureBBodyData && reinterpret_cast<Player*>(fixtureBBodyData))

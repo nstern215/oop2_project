@@ -10,19 +10,24 @@ GameComponent* GameComponent::m_instance = nullptr;
 const float PIXEL_PER_METERS = 32.0f;
 const float PI = 3.14159265358979323846f;
 
-GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* controller):
+GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* controller) :
 	m_world(b2Vec2(0.0f, 9.8f)),
 	m_tower(std::make_unique<Tower>(windowSize, &m_world)),
 	m_player(std::make_unique<Player>(&m_world, m_tower->getFirstFloorPosition(),
-				(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)))),
+		(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)))),
 	m_clockView(increaseLevel, LEVEL_DURATION_SEC, 100),
-	m_contactDecler(setLatestFloor)
+	m_contactDecler(setLatestFloor),
+	m_scoreView(m_baseScoreText, "Tower", 60)
 {
+	m_windowSize = windowSize;
 	m_world.SetContactListener(&m_contactDecler);
 	m_changeModeFunc = changeModeFunc;
 	m_controller = controller;
 
 	m_instance = this;
+
+	m_scoreView.setTextColor(sf::Color::White);
+	m_scoreView.setBackgroundColor(sf::Color::Green);
 }
 
 void GameComponent::active(Metadata& metadata)
@@ -32,10 +37,9 @@ void GameComponent::active(Metadata& metadata)
 }
 
 void GameComponent::updateView()
-{	
+{
+	
 	const auto deltaTime = m_clock.restart();
-
-
 
 	b2Vec2 vel = m_player->keyPress();
 
@@ -64,6 +68,13 @@ void GameComponent::draw(sf::RenderWindow& window)
 	m_player->draw(window);
 
 	m_clockView.draw(window);
+
+	m_scoreView.setText(m_baseScoreText + std::to_string(m_score));
+	
+	const auto scoreWidth = m_scoreView.getGlobalBound().width;
+	m_scoreView.setPosition({ m_windowSize.x - scoreWidth, 0 });
+	
+	m_scoreView.draw(window);
 }
 
 void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
