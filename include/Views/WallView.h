@@ -22,7 +22,7 @@ private:
 
 	sf::RectangleShape m_rect;
 	void buildBackground();
-	const std::string m_BACKGROUND_TEXTURE = "brick_tower_background";
+	const std::string m_BACKGROUND_TEXTURE = "front_background";
 	const int m_MENU_ITEM_FONT_SIZE = 60;
 	const sf::Vector2u m_windowSize;;
 

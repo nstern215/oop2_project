@@ -121,7 +121,9 @@ void Resources::loadTextures()
 	std::vector<std::string> textures = { 
 		"game_sprite",
 		"clock",
-		"clock_hand"};
+		"clock_hand",
+		"front_background",
+		"back_background"};
 
 	for (const auto& item : textures)
 	{

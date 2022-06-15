@@ -20,11 +20,6 @@ void Tower::initiateNewGame()
 {
 	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x, 0, (m_windowSize.y * 9) / 10, m_floorsBufferCount));
 
-	/*while (m_towerFloors.size() != 5)
-	{
-		buildFloor();
-	}*/
-
 	for (int numOfWalls = 0; numOfWalls < 2; numOfWalls++)
 		m_walls.push_back(std::make_unique<Wall>(m_gameWorld, m_windowSize, numOfWalls));
 
@@ -79,7 +74,7 @@ void Tower::buildFloor()
 	const auto [fst, snd] = m_floorGen();
 	auto width = snd * FLOOR_UNIT_WIDTH;
 	auto x = fst.x * FLOOR_UNIT_WIDTH;
-	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 100.0f;
+	auto y = (m_towerFloors.back()->getBodyPosition().y) * PIXEL_PER_METERS - 120.0f;
 
 	auto f = new Floor(m_gameWorld, width, x, y, ++m_floorsBufferCount);
 
@@ -94,7 +89,7 @@ void Tower::buildFloor()
 void Tower::move(float deltaTime)
 {
 
-	if (m_towerFloors.back()->getPosition().y >= 60)
+	if (m_towerFloors.back()->getPosition().y >= 90)
 	{
 		buildFloor();
 	}
