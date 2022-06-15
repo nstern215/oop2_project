@@ -20,11 +20,6 @@ void Tower::initiateNewGame()
 {
 	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x, 0, (m_windowSize.y * 9) / 10, m_floorsBufferCount));
 
-	/*while (m_towerFloors.size() != 5)
-	{
-		buildFloor();
-	}*/
-
 	for (int numOfWalls = 0; numOfWalls < 2; numOfWalls++)
 		m_walls.push_back(std::make_unique<Wall>(m_gameWorld, m_windowSize, numOfWalls));
 
@@ -69,8 +64,7 @@ void Tower::reset()
 {
 	m_state = PAUSE;
 
-	//todo: remove all floors
-
+	m_towerFloors.clear();
 }
 
 void Tower::buildFloor()

@@ -136,3 +136,8 @@ void Player::endContact()
 {
 	m_contacting = false;
 }
+
+void Player::reset(b2Vec2 startingPosition)
+{
+	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+}

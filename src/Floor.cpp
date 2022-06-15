@@ -11,6 +11,12 @@ Floor::Floor(b2World* world, float width, float x, float y, int floorLevel) :
 	buildFloorBody(width, x, y);
 }
 
+Floor::~Floor()
+{
+	m_body->GetWorld()->DestroyBody(m_body);
+}
+
+
 void Floor::buildFloorBody(float width, float x, float y)
 {
 	m_collisionFilter.categoryBits = 1;

@@ -47,11 +47,18 @@ void GameComponent::active(Metadata& metadata)
 {
 	m_clock.restart();
 
-	/*if (metadata.count("status") != 0)
-		if (metadata["status"] == "resume")
-			*/
+	if (metadata.count("status") != 0)
+		if (metadata["status"] == "new")
+		{
+			m_tower->reset();
+			m_tower->initiateNewGame();
+			m_score = 0;
+
+			m_player->reset(m_tower->getFirstFloorPosition());
+		}
+			//todo: start new game!!!!!
 	
-	//m_tower->play();
+	
 }
 
 void GameComponent::updateView()
