@@ -31,12 +31,7 @@ void GameComponent::active(Metadata& metadata)
 }
 
 void GameComponent::updateView()
-{
-	if (m_player->getYAxisDirection() > 0)
-		m_tower->disableCollision();
-	else
-		m_tower->enableCollision();
-	
+{	
 	const auto deltaTime = m_clock.restart();
 
 	b2Vec2 vel = m_player->keyPress();
@@ -50,6 +45,10 @@ void GameComponent::updateView()
 
 void GameComponent::draw(sf::RenderWindow& window)
 {
+	if (m_player->getYAxisDirection() > 0)
+		m_tower->disableCollision();
+	else
+		m_tower->enableCollision();
 	
 	m_world.Step(TIME_STEP, VELOCITY_INTERATIONS, POSITION_INTERATIONS);
 	m_tower->draw(window);

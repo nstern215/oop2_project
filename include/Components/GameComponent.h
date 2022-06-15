@@ -14,6 +14,7 @@ public:
 	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* conrtoller);
 
 	static void increaseLevel();
+	static void setLatestFloor(int floor);
 	
 	void active(Metadata& metadata) override;
 	void draw(sf::RenderWindow& window) override;
