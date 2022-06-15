@@ -4,12 +4,13 @@
 
 #define FLOOR_HEIGHT 20
 #define FLOOR_UNIT_WIDTH 40
+#define INITIATE_SPEED 100
 const float PIXEL_PER_METERS = 32.0f;
 
 Tower::Tower(sf::Vector2u windowSize, b2World* world) :
 	m_state(PAUSE),
 	m_floorsBufferCount(0),
-	m_towerSpeed(50),
+	m_towerSpeed(INITIATE_SPEED),
 	m_windowSize(windowSize),
 	m_gameWorld(world)
 {
@@ -65,6 +66,7 @@ void Tower::reset()
 	m_state = PAUSE;
 
 	m_towerFloors.clear();
+	m_towerSpeed = INITIATE_SPEED;
 }
 
 void Tower::buildFloor()

@@ -53,17 +53,19 @@ void GameComponent::active(Metadata& metadata)
 			m_tower->reset();
 			m_tower->initiateNewGame();
 			m_score = 0;
+			m_clockView.resetClock();
 
-			m_player->reset(m_tower->getFirstFloorPosition());
-			/*updateView();*/
+			m_player = std::make_unique<Player>(&m_world, m_tower->getFirstFloorPosition(),
+				(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)));
+
+			m_requireReset = false;
 		}
-	//todo: start new game!!!!!
-
-
 }
 
 void GameComponent::updateView()
 {
+	if (m_requireReset)
+		return;
 
 	const auto deltaTime = m_clock.restart();
 
@@ -79,23 +81,6 @@ void GameComponent::updateView()
 
 	if (m_player->getPosition().y <= m_windowSize.y / 2)
 		m_tower->play();
-
-	//m_world.SetContactListener(&m_contactDecler);
-
-	/*const auto screenThird = m_windowSize.y / 3.f;
-	if (m_player->getPosition().y <= screenThird && m_fixValue == 0)
-	{
-		m_fixValue = screenThird - m_player->getPosition().y;
-		
-		const sf::Vector2f fixPosition(0, m_fixValue);
-		
-		m_tower->move(fixPosition);
-		m_player->updatePosition(m_player->getPosition() + fixPosition);
-	}
-	else
-	{
-		m_fixValue = 0;
-	}*/
 }
 
 
@@ -165,9 +150,10 @@ void GameComponent::setLatestFloor(int floor)
 	m_instance->m_score = floor;
 }
 
-bool GameComponent::isLoose() const
+bool GameComponent::isLoose()
 {
-	return m_player->getPosition().y >= m_windowSize.y;
+	m_requireReset = m_player->getPosition().y >= m_windowSize.y;
+	return m_requireReset;
 }
 
 void GameComponent::gameOver()

@@ -140,4 +140,5 @@ void Player::endContact()
 void Player::reset(b2Vec2 startingPosition)
 {
 	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+	m_view->setPosition({ startingPosition.x * PIXEL_PER_METERS, startingPosition.y * PIXEL_PER_METERS });
 }

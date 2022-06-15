@@ -34,7 +34,7 @@ private:
 	const int m_MENU_ITEM_FONT_SIZE = 60;
 	const sf::Vector2u m_windowSize;;
 
-	bool isLoose() const;
+	bool isLoose();
 	void gameOver();
 	
 	static GameComponent* m_instance;
@@ -57,4 +57,6 @@ private:
 	float m_fixValue = 0;
 
 	sf::Sound m_sound;
+
+	bool m_requireReset = false;
 };
