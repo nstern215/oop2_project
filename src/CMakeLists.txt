@@ -11,7 +11,7 @@
 												"MenuCommands.cpp"
 												"Wall.cpp"
 												"Direction.cpp"
-												"ContactDecler.cpp"
+												"ContactDecleare.cpp"
 												"Animation.cpp"
 												"AnimationData.cpp"
 

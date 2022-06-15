@@ -18,6 +18,8 @@ void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
 
 	m_staticBox.SetAsBox((width / 2.0f) / PIXEL_PER_METERS, (HIGHT / 2.0f) / PIXEL_PER_METERS);
 	m_body->CreateFixture(&m_staticBox, 1.0f);
+	//m_body->SetUserData(m_contactDecleare.get());
+	m_body->GetUserData().pointer = reinterpret_cast<uintptr_t>(m_contactDecleare.get());
 }
 
 void Floor::repositionFloor(b2Vec2 newPosition)

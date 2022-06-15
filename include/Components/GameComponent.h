@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 #include "Tower.h"
 #include "Player.h"
-#include "ContactDecler.h"
+#include "ContactDecleare.h"
 #include "box2d/box2d.h"
 
 class Controller;
@@ -27,5 +27,5 @@ private:
 
 	std::unique_ptr<Player> m_player;
 
-	ContactDecler m_contactDecler;
+	ContactDecleare m_contactDecler;
 };

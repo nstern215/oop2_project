@@ -1,4 +1,5 @@
 #pragma once
+#include "ContactDecleare.h"
 #include "Views/PlayerView.h"
 #include "box2d/box2d.h"
 
@@ -18,12 +19,15 @@ public:
 	b2Vec2 getBodyVelocity() const;
 	b2Vec2 getBodyPosition() const;
 
+	void startContact() { m_contacting = true; }
+	void endContact() { m_contacting = false; }
+
 
 private:
 
 	void buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size);
 
-	bool m_inContact
+	bool m_contacting;
 
 	b2BodyDef m_bodyDef;
 	b2PolygonShape m_dynamicBox;
@@ -33,4 +37,6 @@ private:
 	std::unique_ptr<PlayerView> m_view;
 
 	float m_playerSpeed;
+
+	std::unique_ptr<ContactDecleare> m_contactDecleare;
 };

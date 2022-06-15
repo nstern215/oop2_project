@@ -4,7 +4,8 @@ const float PIXEL_PER_METERS = 32.0f;
 
 Player::Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size) :
 	m_view(std::make_unique<PlayerView>(sf::Vector2f(size.x*PIXEL_PER_METERS, size.y*PIXEL_PER_METERS))),
-	m_playerSpeed(500)
+	m_playerSpeed(500),
+	m_contacting(false)
 {
 	buildBody(gameWorld, startingPosition, size);
 }
@@ -21,6 +22,8 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_fixtureDef.density = 1.0f;
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
+	//m_body->SetUserData(m_contactDecleare.get());
+	m_body->GetUserData().pointer = reinterpret_cast<uintptr_t>(m_contactDecleare.get());
 }
 
 void Player::update(sf::Time delta) const
