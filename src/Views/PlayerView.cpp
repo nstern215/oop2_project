@@ -15,12 +15,12 @@ namespace
             return Direction::Left;
         case sf::Keyboard::Right:
             return Direction::Right;
-        case sf::Keyboard::Up:
-            return Direction::Up;
         case sf::Keyboard::Down:
             return Direction::Down;
         case sf::Keyboard::Space:
-            return Direction::Stay;
+            return Direction::Up;
+            default:
+                return Direction::Stay;
         }
         return {};
     }

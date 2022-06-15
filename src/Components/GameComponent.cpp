@@ -28,6 +28,8 @@ void GameComponent::updateView()
 {
 	const auto deltaTime = m_clock.restart();
 
+
+
 	b2Vec2 vel = m_player->keyPress();
 
 	m_player->update(deltaTime);
@@ -57,7 +59,6 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 	case sf::Event::KeyReleased:
 		if (event.key.code == sf::Keyboard::Key::Add)
 			m_tower->increseSpeed();
-		break;
 	}
 	
 	updateView();

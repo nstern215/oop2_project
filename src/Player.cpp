@@ -22,7 +22,6 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
 	
 	m_fixtureDef.shape = &m_dynamicBox;
-	m_fixtureDef.filter.groupIndex = -1;
 	m_fixtureDef.density = 1.0f;
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
@@ -50,19 +49,6 @@ b2Vec2 Player::getBodyPosition() const
 
 void Player::draw(sf::RenderWindow& window) const
 {
-	const auto v = getBodyVelocity();
-	if (v.x == 0)
-	{
-		if (v.y > 0)
-			m_view->direction(Direction::Up);
-		else
-			m_view->direction(Direction::Stay);
-	}
-	else if (v.x < 0)
-		m_view->direction(Direction::Left);
-	else
-		m_view->direction(Direction::Right);
-
 	m_view->draw(window);
 }
 
@@ -98,15 +84,10 @@ b2Vec2 Player::keyPress()
 		m_view->direction(Direction::Right);
 		vel.x = 2;
 	}
-
+	
 	m_body->SetLinearVelocity(vel);
 
 	return m_body->GetLinearVelocity();
-}
-
-void Player::handleCollision()
-{
-
 }
 
 void Player::startContact()

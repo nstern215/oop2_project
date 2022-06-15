@@ -30,8 +30,8 @@ private:
 	ContactDecleare m_contactDecler;
 };
 
-struct Data
-{
-	std::string type;
-	void* elem;
+enum entityCategory{
+	PLAYER = 0x0001,
+	FLOOR = 0x0002,
+	WALL = 0x0004
 };
