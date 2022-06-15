@@ -12,12 +12,21 @@ Floor::Floor(b2World* world, float width, float x, float y, float floorLevel) :
 
 void Floor::buildFloorBody(float width, float x, float y, float floorLevel)
 {
+	m_collisionFilter.categoryBits = 1;
+	m_collisionFilter.maskBits = 3;
+	
 	m_bodyDef.type = b2_staticBody;
 	m_bodyDef.position.Set((x + width / 2)/ PIXEL_PER_METERS, y / PIXEL_PER_METERS);
 	m_body = m_gameWorld->CreateBody(&m_bodyDef);
-
+	
 	m_staticBox.SetAsBox((width / 2.0f) / PIXEL_PER_METERS, (HIGHT / 2.0f) / PIXEL_PER_METERS);
-	m_body->CreateFixture(&m_staticBox, 1.0f);
+	m_fixtureDef.shape = &m_staticBox;
+	
+	m_fixtureDef.filter.categoryBits = 1;
+	m_fixtureDef.filter.maskBits = 3;
+	m_body->CreateFixture(&m_fixtureDef);
+
+	//m_body->GetFixtureList()->SetFilterData(m_collisionFilter);
 }
 
 void Floor::repositionFloor(b2Vec2 newPosition)
@@ -53,3 +62,27 @@ sf::Vector2f Floor::getPosition() const
 {
 	return m_view->getPosition();
 }
+
+void Floor::enableCollision()
+{
+	const auto currentFilter = m_body->GetFixtureList()->GetFilterData();
+	if (currentFilter.maskBits == 3)
+		return;
+
+	m_collisionFilter.categoryBits = 1;
+	m_collisionFilter.maskBits = 3;
+
+	m_body->GetFixtureList()->SetFilterData(m_collisionFilter);
+}
+
+void Floor::disableCollision()
+{
+	const auto currentFilter = m_body->GetFixtureList()->GetFilterData();
+	if (currentFilter.maskBits == 2)
+		return;
+	m_collisionFilter.categoryBits = 1;
+	m_collisionFilter.maskBits = 2;
+	
+	m_body->GetFixtureList()->SetFilterData(m_collisionFilter);
+}
+

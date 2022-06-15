@@ -32,6 +32,11 @@ void GameComponent::active(Metadata& metadata)
 
 void GameComponent::updateView()
 {
+	if (m_player->getYAxisDirection() > 0)
+		m_tower->disableCollision();
+	else
+		m_tower->enableCollision();
+	
 	const auto deltaTime = m_clock.restart();
 
 	b2Vec2 vel = m_player->keyPress();
@@ -68,9 +73,11 @@ void GameComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 			m_tower->increaseSpeed();
 		else if (event.key.code == sf::Keyboard::Key::Escape)
 		{
-			const Metadata metadata = {{"status", "pause"}};
+			const Metadata metadata = { {"status", "pause"} };
 			(m_controller->*m_changeModeFunc)(MENU, metadata);
 		}
+		else if (event.key.code == sf::Keyboard::Key::A)
+			m_tower->disableCollision();
 	case sf::Event::KeyPressed:
 		//m_player->keyPress(event.key.code);
 

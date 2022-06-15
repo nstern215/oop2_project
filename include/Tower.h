@@ -30,6 +30,8 @@ public:
 
 	b2Vec2 getFirstFloorPosition();
 
+	void disableCollision();
+	void enableCollision();
 
 private:
 

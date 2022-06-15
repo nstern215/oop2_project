@@ -48,7 +48,10 @@ void MenuComponent::eventHandler(sf::RenderWindow& window, sf::Event& event)
 			break;
 		case sf::Keyboard::Key::Escape:
 			if (isItemActive("Resume"))
+			{
+				m_sound.stop();
 				runItemCommand("Resume");
+			}
 			break;
 		}
 		break;

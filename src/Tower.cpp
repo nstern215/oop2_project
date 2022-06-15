@@ -108,3 +108,17 @@ b2Vec2 Tower::getFirstFloorPosition()
 
 	return m_towerFloors.front()->getBodyPosition();
 }
+
+
+void Tower::enableCollision()
+{
+	for (const auto& floor : m_towerFloors)
+		floor->enableCollision();
+}
+
+void Tower::disableCollision()
+{
+	for (const auto& floor : m_towerFloors)
+		floor->disableCollision();
+}
+

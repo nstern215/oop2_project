@@ -19,8 +19,8 @@ void ClockView::buildClock()
 	m_clock.setPosition(0, 0);
 	m_clock.setTexture(Resources::instance()->getTexture("clock"));
 
-	m_hand.setSize({ 20, static_cast<float>(RADIUS) });
-	m_hand.setOrigin(10, RADIUS);
+	m_hand.setSize({ 20, static_cast<float>(RADIUS) * 0.7f });
+	m_hand.setOrigin(10, RADIUS * 0.7f);
 	m_hand.setPosition(RADIUS, RADIUS);
 	m_hand.setTexture(Resources::instance()->getTexture("clock_hand"));
 

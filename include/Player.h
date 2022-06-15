@@ -9,7 +9,7 @@ public:
 	Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size);
 	void draw(sf::RenderWindow& window) const;
 	void handleCollision();
-	void updatePosition(sf::Vector2f update) const;
+	void updatePosition(sf::Vector2f update);
 	b2Vec2 keyPress();
 	sf::Vector2f getPosition() const;
 
@@ -21,6 +21,8 @@ public:
 
 	void startContact();
 	void endContact();
+
+	int getYAxisDirection() const;
 
 private:
 
@@ -40,4 +42,6 @@ private:
 	std::unique_ptr<ContactDecleare> m_contactDecleare;
 
 	int contactCounter = 0;
+
+	sf::Vector2f m_oldPosition;
 };

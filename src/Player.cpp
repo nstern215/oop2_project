@@ -20,12 +20,23 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_dynamicBox.SetAsBox(size.x, size.y);
 
 	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+	//m_fixtureDef.filter.categoryBits = 1;
 	
 	m_fixtureDef.shape = &m_dynamicBox;
-	m_fixtureDef.filter.groupIndex = -1;
+
+	m_fixtureDef.filter.categoryBits = 1;
+	m_fixtureDef.filter.maskBits = 3;
+
 	m_fixtureDef.density = 1.0f;
 	m_fixtureDef.friction = 0.3f;
 	m_body->CreateFixture(&m_fixtureDef);
+}
+
+int Player::getYAxisDirection() const
+{
+	const auto currentPosition = m_view->getPosition();
+
+	return m_oldPosition.y - currentPosition.y;
 }
 
 void Player::update(sf::Time delta) const
@@ -66,8 +77,9 @@ void Player::draw(sf::RenderWindow& window) const
 	m_view->draw(window);
 }
 
-void Player::updatePosition(sf::Vector2f update) const
+void Player::updatePosition(sf::Vector2f update)
 {
+	m_oldPosition = m_view->getPosition();
 	m_view->setPosition(update);
 }
 
@@ -85,7 +97,7 @@ b2Vec2 Player::keyPress()
 		if (m_contacting)
 		{
 			m_view->direction(Direction::Up);
-			vel.y = -8;
+			vel.y = -10;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
