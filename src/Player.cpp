@@ -66,7 +66,13 @@ void Player::draw(sf::RenderWindow& window) const
 
 void Player::updatePosition(sf::Vector2f update)
  {
+ 	if (m_oldPosition == m_view->getPosition())
+	{
+		m_view->direction(Direction::Stay);
+	}
+
 	m_oldPosition = m_view->getPosition();
+	
 	m_view->setPosition(update);
 }
 

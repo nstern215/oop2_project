@@ -98,7 +98,7 @@ void Tower::move(float deltaTime)
 	for (auto& m_floor : m_towerFloors)
 	{
 
-		/*m_floor->updatePosition(direction);*/
+		m_floor->updatePosition(direction);
 	}
 
 }

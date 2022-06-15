@@ -34,15 +34,13 @@ void GameComponent::active(Metadata& metadata)
 void GameComponent::updateView()
 {	
 	const auto deltaTime = m_clock.restart();
-
-
-
+	
 	b2Vec2 vel = m_player->keyPress();
 
 	m_player->update(deltaTime);
 	m_clockView.update(deltaTime);
 	
-	//m_tower->move(deltaTime);
+	m_tower->move(deltaTime.asSeconds());
 }
 
 
