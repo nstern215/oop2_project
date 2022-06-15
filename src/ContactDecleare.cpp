@@ -1,40 +1,34 @@
 #include "ContactDecleare.h"
+
+#include <cstdint>
+
 #include "Player.h"
 #include "Floor.h"
 
 void ContactDecleare::BeginContact(b2Contact* contact)
 {
-	//check if fixture A was a Player
-	Player* bodyUserData = (Player*)contact->GetFixtureA()->GetBody()->GetUserData().pointer;
+	//A - floor
+	//B - player
+	
+	uintptr_t fixtureBBodyData = contact->GetFixtureB()->GetUserData().pointer;
 
-	if (bodyUserData)
-		bodyUserData->startContact();
-
-	//check if fixture B was a Floor
-	/*bodyUserData = &contact->GetFixtureB()->GetBody()->GetUserData();
-	if (bodyUserData)
-		static_cast<Floor*>(bodyUserData)->startContact();*/
+	if (fixtureBBodyData && reinterpret_cast<Player*>(fixtureBBodyData))
+	{
+		reinterpret_cast<Player*>(fixtureBBodyData)->startContact();
+	}
 }
 
 void ContactDecleare::EndContact(b2Contact* contact)
 {
-	//check if fixture A was a Player
+	//A - floor
+	//B - player
+	
+	uintptr_t fixtureBBodyData = contact->GetFixtureB()->GetUserData().pointer;
 
-	Player* bodyUserData = (Player*)contact->GetFixtureA()->GetBody()->GetUserData().pointer;
-
-	if (bodyUserData)
-		bodyUserData->endContact();
-
-	/*void* bodyUserData = &contact->GetFixtureA()->GetBody()->GetUserData();
-	if (bodyUserData)
-		if (static_cast<Floor*>(bodyUserData))
-			static_cast<Player*>(bodyUserData)->endContact();*/
-
-	//check if fixture B was a Floor
-	/*bodyUserData = &contact->GetFixtureB()->GetBody()->GetUserData();
-	if (bodyUserData)
-		if (static_cast<Floor*>(bodyUserData))
-			static_cast<Floor*>(bodyUserData)->endContact();*/
+	if (fixtureBBodyData && reinterpret_cast<Player*>(fixtureBBodyData))
+	{
+		reinterpret_cast<Player*>(fixtureBBodyData)->endContact();
+	}
 }
 
 void ContactDecleare::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)

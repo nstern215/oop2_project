@@ -29,3 +29,9 @@ private:
 
 	ContactDecleare m_contactDecler;
 };
+
+struct Data
+{
+	std::string type;
+	void* elem;
+};

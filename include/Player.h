@@ -36,8 +36,4 @@ private:
 	std::unique_ptr<PlayerView> m_view;
 
 	float m_playerSpeed;
-
-	std::unique_ptr<ContactDecleare> m_contactDecleare;
-
-	int contactCounter = 0;
 };
