@@ -14,10 +14,13 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 {
 	m_bodyDef.type = b2_dynamicBody;
 	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+	
 	m_body = world->CreateBody(&m_bodyDef);
 
 	m_dynamicBox.SetAsBox(size.x, size.y);
 
+	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
+	
 	m_fixtureDef.shape = &m_dynamicBox;
 	m_fixtureDef.filter.groupIndex = -1;
 	m_fixtureDef.density = 1.0f;
@@ -108,12 +111,10 @@ void Player::handleCollision()
 
 void Player::startContact()
 {
-	contactCounter++;
 	m_contacting = true;
 }
 
 void Player::endContact()
 {
 	m_contacting = false;
-	contactCounter++;
 }

@@ -37,7 +37,7 @@ private:
 
 	float m_playerSpeed;
 
-	/*std::unique_ptr<ContactDecleare> m_contactDecleare;*/
+	std::unique_ptr<ContactDecleare> m_contactDecleare;
 
 	int contactCounter = 0;
 };
