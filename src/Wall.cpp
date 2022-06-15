@@ -1,7 +1,7 @@
 #include "Wall.h"
 
 const float PIXEL_PER_METERS = 32.0f;
-const float WIDTH = 200.0f;
+const float WIDTH = 180.0f;
 
 Wall::Wall(b2World* world, sf::Vector2u windowSize, int wallNum):
 	m_view(std::make_unique<WallView>(windowSize, wallNum)),
