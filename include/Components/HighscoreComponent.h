@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Audio.hpp>
+
 #include "BaseComponent.h"
 #include "FileEditor.h"
 #include "ScoresManager.h"
@@ -37,4 +39,6 @@ private:
 	sf::RectangleShape m_background;
 	
 	std::vector<std::unique_ptr<TextView>> m_scoreViews;
+
+	sf::Sound m_sound;
 };

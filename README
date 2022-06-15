@@ -1,4 +1,74 @@
-# oop2_project
 1.
-Netanel Stern
-Daniel Yosef
+oop2_project - Icy Tower
+
+2.
+Netanel Stern,	ID 206342255
+Daniel Yosef,	ID 322017518
+
+3.
+This project is our customized version of the famous and legendary game "Icy Tower"
+
+4.
+There is a main controller that hold the window and different components and provide the
+needed support fot the components.
+
+The game based on different componnets.
+Each component represents one pice of the game such the menu, score board, the game itself etc.
+
+The component hold different views, and synchronize the data between them, and contains the
+relevant logic.
+
+The graphic parts are seperated from the components by the views.
+view is an object that take care only for the graphical part (sfml only),
+what give the opportunity to reuse the different views and let the component take care only for
+logic stuff.
+
+A view can be built or based on some other views.
+
+A Singelton design pattern uses to manage all extenal resources such as music and images.
+A Command design pattern uses for the menu different options.
+
+5.
+Animation.h\.cpp
+AnimationData.h\.cpp
+Command.h\.cpp
+Controller.h\.cpp
+Direction.h\.cpp
+FileEditor.h\.cpp
+Floor.h\.cpp
+FloorGenerator.h\.cpp
+MenuCommands.h\.cpp
+Mode.h\.cpp
+Player.h\.cpp
+Resources.h\.cpp
+ScoresManager.h\.cpp
+Tower.h\.cpp
+
+Views/
+BaseView.h\.cpp
+ClockView.h\.cpp
+FloorView.h\.cpp
+MenuItemView.h\.cpp
+PlayerView.h\.cpp
+ScoreBoardView.h\.cpp
+TextView.h\.cpp
+
+Components/
+BaseComponent.h\.cpp
+GameComponent.h\.cpp
+HighscoreComponent.h\.cpp
+MenuComponent.h\.cpp
+TutorialComponent.h\.cpp
+WelcomeComponent.h\.cpp
+
+6.
+We used the STL data structures such the Map for the resources
+Vedtor for general purposes
+list used to save the tower floors becasue we need a mix of queue functionallity
+and iterator to run on the elements
+
+7.
+
+8.
+
+9.

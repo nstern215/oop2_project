@@ -29,7 +29,7 @@ void Tower::initiateNewGame()
 		m_walls.push_back(std::make_unique<Wall>(m_gameWorld, m_windowSize, numOfWalls));
 }
 
-void Tower::increseSpeed()
+void Tower::increaseSpeed()
 {
 	m_towerSpeed += 50;
 }

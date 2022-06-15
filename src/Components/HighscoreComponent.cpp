@@ -15,6 +15,8 @@ HighscoreComponent::HighscoreComponent(void (Controller::* changeModeFunc)(Mode,
 	m_scoresFile.loadFile();
 
 	buildView();
+
+	m_sound.setVolume(100);
 }
 
 void HighscoreComponent::active(Metadata& metadata)
@@ -23,7 +25,16 @@ void HighscoreComponent::active(Metadata& metadata)
 	{
 		m_newScore = stoi(metadata["score"]);
 		if (m_scores.isNewScore(m_newScore))
+		{
+			if (m_newScore > m_scores.getHigherstScore())
+				m_sound.setBuffer(*Resources::instance()->getMusic("new_high_score"));
+			else
+				m_sound.setBuffer(*Resources::instance()->getMusic("new_record_claps"));
+
+			m_sound.play();
+			
 			m_isReadingInput = true;
+		}
 	}
 }
 

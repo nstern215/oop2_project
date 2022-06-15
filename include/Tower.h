@@ -26,7 +26,7 @@ public:
 
 	void move(float deltaTime);
 
-	void increseSpeed();
+	void increaseSpeed();
 
 	b2Vec2 getFirstFloorPosition();
 

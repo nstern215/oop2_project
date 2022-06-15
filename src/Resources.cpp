@@ -83,7 +83,7 @@ sf::Texture* Resources::getTexture(std::string textureName)
 	return m_textures[textureName].get();
 }
 
-sf::Music* Resources::getMusic(std::string musicName)
+sf::SoundBuffer* Resources::getMusic(std::string musicName)
 {
 	if (!m_audio.count(musicName))
 		return nullptr;
@@ -93,8 +93,21 @@ sf::Music* Resources::getMusic(std::string musicName)
 
 void Resources::loadAudio()
 {
-	/*m_audio.insert({ "openning_track", std::make_unique<sf::Music>() });
-	m_audio["openning_track"]->openFromFile("openning_track.mp3");*/
+	std::vector<std::string> audio = { "opening_track",
+		"100_floors",
+		"alarm",
+		"game_over",
+		"new_high_score",
+		"new_record_claps" };
+
+	for (const auto& item : audio)
+	{
+		m_audio.insert({ item, std::make_unique<sf::SoundBuffer>() });
+
+		auto trackName(item);
+		trackName += ".wav";
+		m_audio[item]->loadFromFile(trackName);
+	}	
 }
 
 void Resources::loadFonts()
@@ -105,11 +118,22 @@ void Resources::loadFonts()
 
 void Resources::loadTextures()
 {
+	std::vector<std::string> textures = { 
+		"game_sprite",
+		"clock",
+		"clock_hand"};
+
+	for (const auto& item : textures)
+	{
+		m_textures.insert({ item, std::make_unique<sf::Texture>() });
+
+		auto name(item);
+		name += ".png";
+		m_textures[item]->loadFromFile(name);
+	}
+
 	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
 	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
-
-	m_textures.insert({ "game_sprite", std::make_unique<sf::Texture>() });
-	m_textures["game_sprite"]->loadFromFile("icytower_sprite.png");
 }
 
 void Resources::buildAnimation()
