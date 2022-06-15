@@ -97,16 +97,29 @@ void Tower::move(float deltaTime)
 
 	if (m_state != PLAY)
 		return;
-	
- 	const sf::Vector2f direction(0, deltaTime * m_towerSpeed);
 
+	const sf::Vector2f direction(0, deltaTime * m_towerSpeed);
+	move(direction);
+}
+
+void Tower::move(sf::Vector2f direction)
+{
 	for (auto& m_floor : m_towerFloors)
 	{
 		sf::Vector2f newPosition = m_floor->getPosition() + direction;
-		
+
 		m_floor->updatePosition(newPosition);
 	}
+}
 
+float Tower::getSpeed() const
+{
+	return m_towerSpeed;
+}
+
+void Tower::setSpeed(float speed)
+{
+	m_towerSpeed = speed;
 }
 
 b2Vec2 Tower::getFirstFloorPosition()

@@ -25,7 +25,8 @@ public:
 	void draw(sf::RenderWindow& window);
 
 	void move(float deltaTime);
-
+	void move(sf::Vector2f direction);
+	
 	void increaseSpeed();
 
 	b2Vec2 getFirstFloorPosition();
@@ -35,6 +36,9 @@ public:
 	void enableCollision();
 
 	void buildFloor();
+
+	float getSpeed() const;
+	void setSpeed(float speed);
 private:
 
 	std::list<std::unique_ptr<Floor>> m_towerFloors;
