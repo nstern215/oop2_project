@@ -12,6 +12,7 @@ public:
 	bool isNewScore(int score) const;
 	std::vector<std::string> getScoresList() const;
 	void addNewScore(std::string name, int score);
+	int getHigherstScore() const;
 
 private:
 	void sortScores();

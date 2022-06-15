@@ -21,6 +21,8 @@ public:
 	void startContact();
 	void endContact();
 
+	int getYAxisDirection() const;
+
 private:
 
 	void buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size);
@@ -39,4 +41,6 @@ private:
 	std::unique_ptr<ContactDecleare> m_contactDecleare;
 
 	int contactCounter = 0;
+
+	sf::Vector2f m_oldPosition;
 };

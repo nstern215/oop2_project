@@ -31,4 +31,5 @@
 												"Views/FloorView.cpp"
 												"Views/MenuItemView.cpp"
 												"Views/ScoreBoardView.cpp"
+												"Views/ClockView.cpp"
 												)

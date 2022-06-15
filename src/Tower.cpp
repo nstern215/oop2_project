@@ -29,7 +29,7 @@ void Tower::initiateNewGame()
 		m_walls.push_back(std::make_unique<Wall>(m_gameWorld, m_windowSize, numOfWalls));
 }
 
-void Tower::increseSpeed()
+void Tower::increaseSpeed()
 {
 	m_towerSpeed += 50;
 }
@@ -108,3 +108,17 @@ b2Vec2 Tower::getFirstFloorPosition()
 
 	return m_towerFloors.front()->getBodyPosition();
 }
+
+
+void Tower::enableCollision()
+{
+	for (const auto& floor : m_towerFloors)
+		floor->enableCollision();
+}
+
+void Tower::disableCollision()
+{
+	for (const auto& floor : m_towerFloors)
+		floor->disableCollision();
+}
+

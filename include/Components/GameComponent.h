@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "ContactDecleare.h"
 #include "box2d/box2d.h"
+#include "Views/ClockView.h"
 
 class Controller;
 
@@ -12,6 +13,9 @@ class GameComponent : public BaseComponent
 public:
 	GameComponent(void (Controller::*changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* conrtoller);
 
+	static void increaseLevel();
+	static void setLatestFloor(int floor);
+	
 	void active(Metadata& metadata) override;
 	void draw(sf::RenderWindow& window) override;
 
@@ -21,6 +25,8 @@ public:
 
 private:
 
+	static GameComponent* m_instance;
+	
 	b2World m_world;
 
 	std::unique_ptr<Tower> m_tower;
@@ -28,10 +34,12 @@ private:
 	std::unique_ptr<Player> m_player;
 
 	ContactDecleare m_contactDecler;
+
+	ClockView m_clockView;
 };
 
-enum entityCategory{
-	PLAYER = 0x0001,
-	FLOOR = 0x0002,
-	WALL = 0x0004
+struct Data
+{
+	std::string type;
+	void* elem;
 };

@@ -19,12 +19,16 @@ public:
 	void startContact() { m_contacting = true; }
 	void endContact() { m_contacting = false; }
 
+	void disableCollision();
+	void enableCollision();
+
 private:
 
 	void buildFloorBody(float width, float x, float y, float floorLevel);
 
 	bool m_contacting;
 
+	b2Filter m_collisionFilter;
 	b2BodyDef m_bodyDef;
 	b2PolygonShape m_staticBox;
 	b2FixtureDef m_fixtureDef;
