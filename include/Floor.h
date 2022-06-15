@@ -8,8 +8,7 @@ class Floor
 public:
 	Floor(b2World* world, float width, float x, float y, float floorLevel);
 
-	void draw(sf::RenderWindow& window) const;
-	void handleCollision();
+	void draw(sf::RenderWindow& window) const;;
 	void repositionFloor(b2Vec2 newPosition);
 
 	b2Vec2 getBodyPosition();
