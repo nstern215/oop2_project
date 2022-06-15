@@ -68,11 +68,6 @@ void Player::draw(sf::RenderWindow& window) const
 
 void Player::updatePosition(sf::Vector2f update)
  {
- 	if (m_oldPosition == m_view->getPosition())
-	{
-		m_view->direction(Direction::Stay);
-	}
-
 	m_oldPosition = m_view->getPosition();
 	
 	m_view->setPosition(update);
@@ -140,4 +135,14 @@ void Player::endContact()
 void Player::reset(b2Vec2 startingPosition)
 {
 	m_bodyDef.position.Set(startingPosition.x, startingPosition.y);
+}
+
+sf::Vector2f Player::getOldPosition()
+{
+	return sf::Vector2f(m_oldPosition.x, m_oldPosition.y);
+}
+
+void Player::setPlayerToStay()
+{
+	m_view->direction(Direction::Stay);
 }

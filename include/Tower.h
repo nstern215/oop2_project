@@ -40,6 +40,7 @@ private:
 	std::list<std::unique_ptr<Floor>> m_towerFloors;
 	std::vector<std::unique_ptr<Wall>> m_walls;
 
+	std::unique_ptr<Floor> m_barrier;
 
 	TowerState m_state;
 

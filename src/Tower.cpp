@@ -18,6 +18,8 @@ Tower::Tower(sf::Vector2u windowSize, b2World* world) :
 
 void Tower::initiateNewGame()
 {
+	m_barrier = std::make_unique<Floor>(m_gameWorld, m_windowSize.x, 0, 0, m_floorsBufferCount);
+
 	m_towerFloors.push_back(std::make_unique<Floor>(m_gameWorld, m_windowSize.x, 0, (m_windowSize.y * 9) / 10, m_floorsBufferCount));
 
 	for (int numOfWalls = 0; numOfWalls < 2; numOfWalls++)
