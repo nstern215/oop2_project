@@ -8,7 +8,7 @@ class Player
 public:
 	Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size);
 	void draw(sf::RenderWindow& window) const;
-	void updatePosition(sf::Vector2f update) const;
+	void updatePosition(sf::Vector2f update);
 	b2Vec2 keyPress();
 	sf::Vector2f getPosition() const;
 
