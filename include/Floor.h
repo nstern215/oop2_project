@@ -7,7 +7,7 @@ class Floor
 {
 public:
 	Floor(b2World* world, float width, float x, float y, int floorLevel);
-
+	~Floor();
 	void draw(sf::RenderWindow& window) const;;
 	void repositionFloor(b2Vec2 newPosition);
 

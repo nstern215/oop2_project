@@ -64,8 +64,7 @@ void Tower::reset()
 {
 	m_state = PAUSE;
 
-	//todo: remove all floors
-
+	m_towerFloors.clear();
 }
 
 void Tower::buildFloor()

@@ -30,15 +30,12 @@ public:
 
 	b2Vec2 getFirstFloorPosition();
 
+	void initiateNewGame();
 	void disableCollision();
 	void enableCollision();
 
 	void buildFloor();
 private:
-
-	void initiateNewGame();
-
-	
 
 	std::list<std::unique_ptr<Floor>> m_towerFloors;
 	std::vector<std::unique_ptr<Wall>> m_walls;

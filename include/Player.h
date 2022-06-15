@@ -13,7 +13,8 @@ public:
 	sf::Vector2f getPosition() const;
 
 	void update(sf::Time delta) const;
-	
+	void reset(b2Vec2 startingPosition);
+
 	void setBodyVelocity(b2Vec2 vel) const;
 	b2Vec2 getBodyVelocity() const;
 	b2Vec2 getBodyPosition() const;
