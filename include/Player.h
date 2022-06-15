@@ -19,8 +19,11 @@ public:
 	b2Vec2 getBodyVelocity() const;
 	b2Vec2 getBodyPosition() const;
 
+	sf::Vector2f getOldPosition();
+
 	void startContact();
 	void endContact();
+	void setPlayerToStay();
 
 	int getYAxisDirection() const;
 

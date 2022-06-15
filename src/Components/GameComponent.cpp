@@ -72,6 +72,13 @@ void GameComponent::updateView()
 	b2Vec2 vel = m_player->keyPress();
 
 	m_player->update(deltaTime);
+
+	if ((m_player->getPosition().x - m_player->getOldPosition().x) == 0.0f)
+	{
+		m_player->setPlayerToStay();
+
+	}
+
 	m_clockView.update(deltaTime);
 
 	if (isLoose())
