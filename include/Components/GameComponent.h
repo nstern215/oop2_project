@@ -1,4 +1,6 @@
 #pragma once
+#include <SFML/Audio.hpp>
+
 #include "BaseComponent.h"
 #include "Tower.h"
 #include "Player.h"
@@ -26,6 +28,9 @@ public:
 
 private:
 
+	bool isLoose() const;
+	void gameOver();
+	
 	static GameComponent* m_instance;
 	
 	b2World m_world;
@@ -43,10 +48,6 @@ private:
 	const std::string m_baseScoreText = "Score:   ";
 	TextView m_scoreView;
 
-};
 
-struct Data
-{
-	std::string type;
-	void* elem;
+	sf::Sound m_sound;
 };

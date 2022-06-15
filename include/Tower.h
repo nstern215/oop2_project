@@ -33,11 +33,12 @@ public:
 	void disableCollision();
 	void enableCollision();
 
+	void buildFloor();
 private:
 
 	void initiateNewGame();
 
-	void buildFloor();
+	
 
 	std::list<std::unique_ptr<Floor>> m_towerFloors;
 	std::vector<std::unique_ptr<Wall>> m_walls;

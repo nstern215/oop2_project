@@ -8,6 +8,7 @@ Player::Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size) :
 	m_contacting(true)
 {
 	buildBody(gameWorld, startingPosition, size);
+	m_view->setPosition({ startingPosition.x * PIXEL_PER_METERS, startingPosition.y * PIXEL_PER_METERS });
 }
 
 void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
@@ -20,7 +21,6 @@ void Player::buildBody(b2World* world, b2Vec2 startingPosition, b2Vec2 size)
 	m_dynamicBox.SetAsBox(size.x, size.y);
 
 	m_fixtureDef.userData.pointer = reinterpret_cast<uintptr_t>(this);
-	//m_fixtureDef.filter.categoryBits = 1;
 	
 	m_fixtureDef.shape = &m_dynamicBox;
 

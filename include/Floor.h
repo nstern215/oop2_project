@@ -26,7 +26,7 @@ public:
 
 private:
 
-	void buildFloorBody(float width, float x, float y, float floorLevel);
+	void buildFloorBody(float width, float x, float y);
 
 	bool m_contacting;
 
