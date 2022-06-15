@@ -1,4 +1,5 @@
 #include "Components/GameComponent.h"
+#include "Resources.h"
 
 #define TIME_STEP 1.0f/30.0f
 #define VELOCITY_INTERATIONS 6
@@ -12,14 +13,16 @@ const float PI = 3.14159265358979323846f;
 
 GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<std::string, std::string>), sf::Vector2u windowSize, Controller* controller) :
 	m_world(b2Vec2(0.0f, 9.8f)),
-	m_tower(std::make_unique<Tower>(windowSize, &m_world)),
+	m_windowSize(windowSize),
+	m_tower(std::make_unique<Tower>(m_windowSize, &m_world)),
 	m_player(std::make_unique<Player>(&m_world, m_tower->getFirstFloorPosition(),
 		(b2Vec2((30.f / 2.0f) / PIXEL_PER_METERS, (57.f / 2.0f) / PIXEL_PER_METERS)))),
 	m_clockView(increaseLevel, LEVEL_DURATION_SEC, 100),
 	m_contactDecler(setLatestFloor),
 	m_scoreView(m_baseScoreText, "Tower", 60)
 {
-	m_windowSize = windowSize;
+	buildBackground();
+
 	m_world.SetContactListener(&m_contactDecler);
 	m_changeModeFunc = changeModeFunc;
 	m_controller = controller;
@@ -28,6 +31,12 @@ GameComponent::GameComponent(void (Controller::* changeModeFunc)(Mode, std::map<
 
 	m_scoreView.setTextColor(sf::Color::White);
 	m_scoreView.setBackgroundColor(sf::Color::Green);
+}
+
+void GameComponent::buildBackground()
+{
+	m_background.setSize({ static_cast<float>(m_windowSize.x), static_cast<float>(m_windowSize.y) });
+	m_background.setTexture(Resources::instance()->getTexture(m_BACKGROUND_TEXTURE));
 }
 
 void GameComponent::active(Metadata& metadata)
@@ -52,6 +61,8 @@ void GameComponent::updateView()
 
 void GameComponent::draw(sf::RenderWindow& window)
 {
+	window.draw(m_background);
+
 	if (m_player->getYAxisDirection() > 0)
 		m_tower->disableCollision();
 	else

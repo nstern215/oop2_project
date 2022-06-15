@@ -40,6 +40,8 @@ private:
 
 	std::unique_ptr<ContactDecleare> m_contactDecleare;
 
+	float m_goingRight;
+	float m_goingLeft;
 	int contactCounter = 0;
 
 	sf::Vector2f m_oldPosition;

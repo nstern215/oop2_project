@@ -26,6 +26,12 @@ public:
 
 private:
 
+	void buildBackground();
+	sf::RectangleShape m_background;
+	const std::string m_BACKGROUND_TEXTURE = "brick_tower_background";
+	const int m_MENU_ITEM_FONT_SIZE = 60;
+	const sf::Vector2u m_windowSize;;
+
 	static GameComponent* m_instance;
 	
 	b2World m_world;
@@ -42,7 +48,6 @@ private:
 
 	const std::string m_baseScoreText = "Score:   ";
 	TextView m_scoreView;
-
 };
 
 struct Data

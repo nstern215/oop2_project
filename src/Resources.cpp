@@ -134,6 +134,9 @@ void Resources::loadTextures()
 
 	m_textures.insert({ "bricks_background", std::make_unique<sf::Texture>() });
 	m_textures["bricks_background"]->loadFromFile("bricks_background.jpg");
+
+	m_textures.insert({ "brick_tower_background", std::make_unique<sf::Texture>()});
+	m_textures["brick_tower_background"]->loadFromFile("brick_tower_background.jpg");
 }
 
 void Resources::buildAnimation()

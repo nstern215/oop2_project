@@ -5,7 +5,9 @@ const float PIXEL_PER_METERS = 32.0f;
 Player::Player(b2World* gameWorld, b2Vec2 startingPosition, b2Vec2 size) :
 	m_view(std::make_unique<PlayerView>(sf::Vector2f(size.x* PIXEL_PER_METERS, size.y* PIXEL_PER_METERS))),
 	m_playerSpeed(500),
-	m_contacting(true)
+	m_contacting(true),
+	m_goingRight(1.0f),
+	m_goingLeft(1.0f)
 {
 	buildBody(gameWorld, startingPosition, size);
 }
@@ -85,23 +87,39 @@ b2Vec2 Player::keyPress()
 {
 	b2Vec2 vel = m_body->GetLinearVelocity();
 
+	if((sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (m_goingRight != 1.0f)) ||
+		(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && (m_goingLeft != 1.0f)))
+	{
+		if (m_contacting)
+		{
+			m_view->direction(Direction::Up);
+			vel.y = -15;
+		}
+	}
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	{
 		if (m_contacting)
 		{
 			m_view->direction(Direction::Up);
-			vel.y = -10;
+			vel.y = -10;          
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 	{
+		m_goingRight = 1.0f;
+
 		m_view->direction(Direction::Left);
-		vel.x = -2;
+		vel.x = -2*m_goingLeft;
+		m_goingLeft += 0.03f;
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
+		m_goingLeft = 1.0f;
+
 		m_view->direction(Direction::Right);
-		vel.x = 2;
+		vel.x = 2*m_goingRight;
+		m_goingRight += 0.03f;
 	}
 	
 	m_body->SetLinearVelocity(vel);

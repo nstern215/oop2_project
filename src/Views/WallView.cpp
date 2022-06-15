@@ -1,6 +1,6 @@
 #include "Views/WallView.h"
 
-#define WALL_UNIT_WIDTH 50
+#define WALL_UNIT_WIDTH 200
 
 WallView::WallView(sf::Vector2u windowSize, int wallNum)
 {
